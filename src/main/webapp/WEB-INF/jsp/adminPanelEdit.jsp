@@ -1,8 +1,6 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="layout" tagdir="/WEB-INF/tags" %>
 
-<jsp:useBean id="user" scope="request" type="ru.kpfu.itis.java3.srvergasov.auth.entity.User"/>
-
 <layout:mainLayout>
 
     <section class="vh-100" style="background-color: #9de2ff;">
