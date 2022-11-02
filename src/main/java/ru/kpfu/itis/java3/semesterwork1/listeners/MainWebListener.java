@@ -1,6 +1,8 @@
 package ru.kpfu.itis.java3.semesterwork1.listeners;
 
 import ru.kpfu.itis.java3.semesterwork1.db.DBConnection;
+import ru.kpfu.itis.java3.semesterwork1.exceptions.DBConnectionException;
+import ru.kpfu.itis.java3.semesterwork1.exceptions.PropertyLoadException;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -17,6 +19,7 @@ public class MainWebListener implements ServletContextListener {
     private String username;
     private String password;
     private String driver;
+    private String dbName;
 
     private void initProperties() {
         Properties prop = new Properties();
@@ -26,6 +29,7 @@ public class MainWebListener implements ServletContextListener {
             this.username = prop.getProperty("dbUsername");
             this.password = prop.getProperty("dbPassword");
             this.driver = prop.getProperty("dbDriver");
+            this.dbName = prop.getProperty("dbName");
         } catch (IOException e) {
             throw new PropertyLoadException(this.toString());
         }
@@ -42,7 +46,7 @@ public class MainWebListener implements ServletContextListener {
     private Connection initDbConnection() {
         try {
             Class.forName(driver);
-            return DBConnection.getInstance(url, username, password);
+            return DBConnection.getInstance(url, dbName, username, password);
         } catch (ClassNotFoundException e) {
             throw new DBConnectionException(e.getMessage());
         }
