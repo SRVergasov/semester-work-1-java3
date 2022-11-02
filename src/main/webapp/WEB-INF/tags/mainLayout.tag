@@ -29,7 +29,9 @@
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="${pageContext.request.contextPath}" class="nav-link px-2 text-white">Home</a></li>
-                <li><a id="#auth" href="#" class="nav-link px-2 text-white">Auth</a></li>
+                <c:if test="${empty user}">
+                    <li><a id="#link_auth" href="#" class="nav-link px-2 text-white">Auth</a></li>
+                </c:if>
                 <li><a href="${pageContext.request.contextPath}/profile" class="nav-link px-2 text-white">Profile</a></li>
                 <li><a href="${pageContext.request.contextPath}/panel" class="nav-link px-2 text-white">Panel</a></li>
                 <c:if test="${not empty user}">
@@ -41,22 +43,24 @@
     </div>
 </header>
 <div class="b-example-divider"></div>
-<layout:authForm />
+<div id="#auth_form" style="display: none">
+    <layout:authForm />
+</div>
 <div id="#main">
     <jsp:doBody/>
 </div>
 </body>
 <script>
-<%--  TODO file js  --%>
-    let form = document.getElementsByClassName("form-signin w-100 m-auto")[0]
-    let body = document.getElementById("#main")
-    document.getElementById("#auth").addEventListener('click', function () {
-        form.style.display = 'block'
-        body.style.display = 'none'
-    })
+<%--  TODO other file  --%>
+    let form = document.getElementById("#auth_form");
+    let body = document.getElementById("#main");
+    document.getElementById("#link_auth").addEventListener('click', function () {
+        form.style.display = 'block';
+        body.style.display = 'none';
+    });
 
     document.getElementById("#btn_close").addEventListener('click', function () {
-        form.style.display = 'none'
-        body.style.display = 'block'
-    })
+        form.style.display = 'none';
+        body.style.display = 'block';
+    });
 </script>
