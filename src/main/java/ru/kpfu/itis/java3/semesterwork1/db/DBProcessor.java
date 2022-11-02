@@ -57,13 +57,22 @@ public class DBProcessor {
     }
 
     public User getUserByUsername(String username) {
-        List<User> userList = getUsersList();
-        for (User u : userList) {
-            if (u.getUsername().equals(username)) {
-                return u;
+        try (Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(
+                    //TODO more beautiful requests
+                    "SELECT * FROM sample_user WHERE username = '" + username + "'"
+            );
+            if (rs.next()) {
+                return new User(rs.getInt("id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("user_role"),
+                        rs.getString("city"));
             }
+            throw new DBException("not found");
+        } catch (SQLException exception) {
+            throw new DBException(exception.getMessage());
         }
-        return null;
     }
 
     public User getUserById(int id) {
@@ -84,12 +93,12 @@ public class DBProcessor {
         }
     }
 
-    public boolean setCity(int userId, String city) {
+    public void setCity(int userId, String city) {
         try {
             PreparedStatement stmt = conn.prepareStatement(
                     "update sample_user set city = '" + city + "' where id = " + userId
             );
-            return stmt.execute();
+            stmt.execute();
         } catch (SQLException exception) {
             throw new DBException(exception.getMessage());
         }
