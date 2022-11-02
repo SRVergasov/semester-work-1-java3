@@ -1,12 +1,9 @@
 package ru.kpfu.itis.java3.semesterwork1.db;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import ru.kpfu.itis.java3.srvergasov.auth.entity.User;
-import ru.kpfu.itis.java3.srvergasov.auth.exceptions.DBException;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class DBProcessor {
     private final Connection conn;
