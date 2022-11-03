@@ -4,10 +4,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import ru.kpfu.itis.java3.semesterwork1.entity.User;
 import ru.kpfu.itis.java3.semesterwork1.exceptions.DBException;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,15 +93,15 @@ public class DBProcessor {
         }
     }
 
-//    public void setCity(int userId, String city) {
-//        try {
-//            PreparedStatement stmt = conn.prepareStatement(
-//                    "update users set city = '" + city + "' where id = " + userId
-//            );
-//            stmt.execute();
-//        } catch (SQLException exception) {
-//            throw new DBException(exception.getMessage());
-//        }
-//    }
+    public void setRating(int userId, String rating) {
+        try {
+            PreparedStatement stmt = conn.prepareStatement(
+                    "update users set rating = '" + rating + "' where id = " + userId
+            );
+            stmt.execute();
+        } catch (SQLException exception) {
+            throw new DBException(exception.getMessage());
+        }
+    }
 
 }

@@ -14,7 +14,7 @@
                     Name: <c:out value="${item.username}" /><br>
                     Rating: <c:out value="${item.rating}" /><br>
                 </p>
-        <a href="${pageContext.request.contextPath}/panel/edit?id=${item.id}" class="btn btn-primary">EditCity</a>
+        <a href="${pageContext.request.contextPath}/panel/edit?id=${item.id}" class="btn btn-primary">Edit rating</a>
             </div>
         </div>
     </c:forEach>

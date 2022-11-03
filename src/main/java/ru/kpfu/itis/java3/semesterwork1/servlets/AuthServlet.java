@@ -34,7 +34,6 @@ public class AuthServlet extends HttpServlet {
                             req.getSession().setAttribute("user", user);
                     resp.sendRedirect(getServletContext().getContextPath() +  "/profile");
                 } else {
-                    // TODO return
                     String errorText = "incorrect password";
                     req.setAttribute("errorText", errorText);
                     getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);

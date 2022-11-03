@@ -2,7 +2,7 @@ package ru.kpfu.itis.java3.semesterwork1.servlets;
 
 import ru.kpfu.itis.java3.semesterwork1.db.DBProcessor;
 import ru.kpfu.itis.java3.semesterwork1.entity.User;
-import ru.kpfu.itis.java3.semesterwork1.validators.CityInputValidator;
+import ru.kpfu.itis.java3.semesterwork1.validators.RatingInputValidator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,12 +15,12 @@ import java.sql.Connection;
 @WebServlet("/panel/edit")
 public class AdminPanelEditServlet extends HttpServlet {
     private DBProcessor dbProcessor;
-    private CityInputValidator validator;
+    private RatingInputValidator validator;
 
     @Override
     public void init() throws ServletException {
         dbProcessor = new DBProcessor((Connection) getServletContext().getAttribute("dbConnection"));
-        validator = new CityInputValidator();
+        validator = new RatingInputValidator();
     }
 
     @Override
@@ -33,9 +33,9 @@ public class AdminPanelEditServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String newCity = req.getParameter("newCity");
-        if (validator.validate(newCity)) {
-            dbProcessor.setCity(Integer.parseInt(req.getParameter("id")), newCity);
+        String newRating = req.getParameter("newRating");
+        if (validator.validate(newRating)) {
+            dbProcessor.setRating(Integer.parseInt(req.getParameter("id")), newRating);
             resp.sendRedirect(getServletContext().getContextPath() + "/panel");
         } else {
             String errorText = validator.getMessage();
