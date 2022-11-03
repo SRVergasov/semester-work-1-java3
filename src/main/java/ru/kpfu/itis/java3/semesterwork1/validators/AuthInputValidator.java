@@ -4,7 +4,10 @@ public class AuthInputValidator {
     private String message = "";
 
     public boolean validate(String username, String password) {
-        // TODO null check
+        if (username == null || password == null) {
+            message = "null data";
+            return false;
+        }
         if (username.isEmpty()) {
             message = "Empty username field";
             return false;
