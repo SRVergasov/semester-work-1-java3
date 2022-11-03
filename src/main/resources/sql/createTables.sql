@@ -26,3 +26,4 @@ alter table answers alter column likes set default 0;
 alter table users add constraint uniq_username unique (username);
 alter table questions drop column best_answer;
 alter table answers add column is_best bool default false;
+alter table users add column role varchar constraint users_roles_choice check ( role in ('user', 'admin') ) default 'user';

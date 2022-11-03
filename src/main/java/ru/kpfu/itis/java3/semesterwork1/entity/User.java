@@ -7,16 +7,22 @@ public class User {
     private String username;
     private String password;
     private int rating;
+    private String role;
 
     public User(int id, String username, String password) {
         this(id, username, password, 0);
     }
 
     public User(int id, String username, String password, int rating) {
+        this(id, username, password, rating, null);
+    }
+
+    public User(int id, String username, String password, int rating, String role) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.rating = rating;
+        this.role = role;
     }
 
     public int getId() {
@@ -51,6 +57,14 @@ public class User {
         this.rating = rating;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -61,7 +75,8 @@ public class User {
         if (id != user.id) return false;
         if (rating != user.rating) return false;
         if (!username.equals(user.username)) return false;
-        return password.equals(user.password);
+        if (!password.equals(user.password)) return false;
+        return Objects.equals(role, user.role);
     }
 
     @Override
@@ -70,6 +85,7 @@ public class User {
         result = 31 * result + username.hashCode();
         result = 31 * result + password.hashCode();
         result = 31 * result + rating;
+        result = 31 * result + (role != null ? role.hashCode() : 0);
         return result;
     }
 
