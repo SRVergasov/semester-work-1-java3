@@ -20,8 +20,8 @@
                                     <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
                                          style="background-color: #efefef;">
                                         <div>
-                                            <p class="small text-muted mb-1">City</p>
-                                            <p class="mb-0">${user.city}</p>
+                                            <p class="small text-muted mb-1">Rating</p>
+                                            <p class="mb-0">${user.rating}</p>
                                         </div>
                                     </div>
                                 </div>

@@ -63,7 +63,7 @@ public class DBProcessor {
         try (Statement stmt = conn.createStatement()) {
             ResultSet rs = stmt.executeQuery(
                     //TODO more beautiful requests
-                    "SELECT * FROM sample_user WHERE username = '" + username + "'"
+                    "SELECT * FROM users WHERE username = '" + username + "'"
             );
             if (rs.next()) {
                 return new User(rs.getInt("id"),

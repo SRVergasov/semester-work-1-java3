@@ -12,7 +12,7 @@
                 <h5 class="card-title">User <c:out value="${item.id}" /></h5>
                 <p class="card-text">
                     Name: <c:out value="${item.username}" /><br>
-                    City: <c:out value="${item.city}" /><br>
+                    Rating: <c:out value="${item.rating}" /><br>
                 </p>
         <a href="${pageContext.request.contextPath}/panel/edit?id=${item.id}" class="btn btn-primary">EditCity</a>
             </div>

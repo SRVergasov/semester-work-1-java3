@@ -20,9 +20,9 @@
                                     <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
                                          style="background-color: #efefef;">
                                         <div>
-                                            <p class="small text-muted mb-1">City</p>
+                                            <p class="small text-muted mb-1">Rating</p>
                                             <form action="${pageContext.request.contextPath}/panel/edit?id=${user.id}" method="post">
-                                                <input type="text" name="newCity">
+                                                <input type="text" name="newRating">
                                                 <input type="submit" name="submit">
                                             </form>
                                         </div>
