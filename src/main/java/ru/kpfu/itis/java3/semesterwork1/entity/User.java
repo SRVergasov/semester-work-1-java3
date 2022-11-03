@@ -9,24 +9,16 @@ public class User {
     private String role;
     private String city;
 
-    // TODO reorganize constructors
-
     public User(int id, String username, String password) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.role = "user";
+        this(id, username, password, null, null);
     }
 
     public User(String username, String password, String role) {
-        this.username = username;
-        this.password = password;
-        this.role = role;
+        this(0, username, password, role);
     }
 
     public User(int id, String username, String password, String role) {
-        this(id, username, password);
-        this.role = role;
+        this(id, username, password, role, null);
     }
 
     public User(int id, String username, String password, String role, String city) {
