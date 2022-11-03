@@ -10,6 +10,7 @@ import java.util.List;
 
 public class DBProcessor {
     private final Connection conn;
+    private PasswordHashProcessor hashProcessor = new PasswordHashProcessor();
 
     public DBProcessor(Connection conn) {
         this.conn = conn;
@@ -93,11 +94,26 @@ public class DBProcessor {
         }
     }
 
-    public void setRating(int userId, String rating) {
+    public void setRating(int userId, int rating) {
         try {
             PreparedStatement stmt = conn.prepareStatement(
-                    "update users set rating = '" + rating + "' where id = " + userId
+                    "update users set rating = ? where id = ?"
             );
+            stmt.setInt(1, rating);
+            stmt.setInt(2, userId);
+            stmt.execute();
+        } catch (SQLException exception) {
+            throw new DBException(exception.getMessage());
+        }
+    }
+
+    public void addUser(String username, String password) {
+        try {
+            PreparedStatement stmt = conn.prepareStatement(
+                    "insert into users (username, password) (?, ?)"
+            );
+            stmt.setString(1, username);
+            stmt.setString(2, hashProcessor.generateHashedPassword(password));
             stmt.execute();
         } catch (SQLException exception) {
             throw new DBException(exception.getMessage());
