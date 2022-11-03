@@ -39,7 +39,8 @@ public class AdminPanelEditServlet extends HttpServlet {
             resp.sendRedirect(getServletContext().getContextPath() + "/panel");
         } else {
             String errorText = validator.getMessage();
-            resp.sendRedirect(getServletContext().getContextPath() + "/error?errorText=" + errorText);
+            req.setAttribute("errorText", errorText);
+            getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
         }
     }
 }

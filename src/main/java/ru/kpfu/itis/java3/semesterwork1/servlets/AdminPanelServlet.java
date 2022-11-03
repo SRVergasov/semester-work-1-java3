@@ -23,8 +23,6 @@ public class AdminPanelServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("title", "Panel");
-        User admin = (User) req.getSession().getAttribute("user");
-        req.setAttribute("name", admin.getUsername());
         req.setAttribute("userList", dbProcessor.getUsersList());
         getServletContext().getRequestDispatcher("/WEB-INF/jsp/adminPanel.jsp").forward(req, resp);
     }

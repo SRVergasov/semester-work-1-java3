@@ -18,13 +18,13 @@ public class AdminPanelFilter extends HttpFilter {
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
 
         HttpSession session = req.getSession();
-        if (session.getAttribute("user") == null) {
+        if (session.getAttribute("userId") == null) {
             String errorText = "Not access to not guests (please authorize)";
             req.setAttribute("errorText", errorText);
             getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, res);
             return;
         }
-        if (!((User) session.getAttribute("user")).getRole().equals("admin")) {
+        if (!session.getAttribute("role").equals("admin")) {
             String errorText = "Not access to your access level";
             req.setAttribute("errorText", errorText);
             getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, res);

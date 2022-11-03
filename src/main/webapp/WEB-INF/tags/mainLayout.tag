@@ -29,12 +29,16 @@
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="${pageContext.request.contextPath}" class="nav-link px-2 text-white">Home</a></li>
-                <c:if test="${empty user}">
+                <c:if test="${empty userId}">
                     <li><a id="#link_auth" href="#" class="nav-link px-2 text-white">Auth</a></li>
                 </c:if>
-                <li><a href="${pageContext.request.contextPath}/profile" class="nav-link px-2 text-white">Profile</a></li>
-                <li><a href="${pageContext.request.contextPath}/panel" class="nav-link px-2 text-white">Panel</a></li>
-                <c:if test="${not empty user}">
+                <c:if test="${not empty userId}">
+                    <li><a href="${pageContext.request.contextPath}/profile" class="nav-link px-2 text-white">Profile</a></li>
+                </c:if>
+                <c:if test="${role == \"admin\"}">
+                    <li><a href="${pageContext.request.contextPath}/panel" class="nav-link px-2 text-white">Panel</a></li>
+                </c:if>
+                <c:if test="${not empty userId}">
                     <li><a href="${pageContext.request.contextPath}/logout" class="nav-link px-2 text-white">Logout</a></li>
                 </c:if>
             </ul>

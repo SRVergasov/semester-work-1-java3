@@ -16,7 +16,7 @@ public class SecurityFilter extends HttpFilter {
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
 
         HttpSession session = req.getSession();
-        if (session.getAttribute("user") == null) {
+        if (session.getAttribute("userId") == null) {
             String errorText = "Not access to not guests (please authorize)";
             req.setAttribute("errorText", errorText);
             getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, res);

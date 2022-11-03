@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:choose>
-    <c:when test="${not empty user}">
+    <c:when test="${not empty userId}">
         <div class="alert alert-warning" role="alert">
             You already here!
         </div>
