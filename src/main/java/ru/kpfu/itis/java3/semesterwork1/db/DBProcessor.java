@@ -29,7 +29,7 @@ public class DBProcessor {
         List<User> userList = getUsersList();
         for (User u : userList) {
             if (u.getUsername().equals(username) &&
-                    u.getPassword().equals(DigestUtils.md5Hex(password))) {
+                    u.getPassword().equals(hashProcessor.generateHashedPassword(password))) {
                 return true;
             }
         }
