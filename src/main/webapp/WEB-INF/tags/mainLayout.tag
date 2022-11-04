@@ -45,7 +45,11 @@
                     <li><a href="${pageContext.request.contextPath}/logout" class="nav-link px-2 text-white">Logout</a></li>
                 </c:if>
             </ul>
-
+            <div class="text-end px-2">
+                <p>
+                    ${name}
+                </p>
+            </div>
         </div>
     </div>
 </header>

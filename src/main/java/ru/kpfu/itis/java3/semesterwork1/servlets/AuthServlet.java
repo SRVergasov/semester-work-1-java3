@@ -33,6 +33,7 @@ public class AuthServlet extends HttpServlet {
                 if (dbProcessor.authUser(username, password)) {
                     User user = dbProcessor.getUserByUsername(username);
                     req.getSession().setAttribute("userId", user.getId());
+                    req.getSession().setAttribute("name", user.getUsername());
                     req.getSession().setAttribute("role", user.getRole());
                     resp.sendRedirect(getServletContext().getContextPath() +  "/profile");
                 } else {
