@@ -3,6 +3,8 @@ package ru.kpfu.itis.java3.semesterwork1.exceptions;
 import java.sql.SQLException;
 
 public class DBException extends RuntimeException {
+    private String dbState;
+
     public DBException() {
         super();
     }
@@ -17,5 +19,10 @@ public class DBException extends RuntimeException {
                 .append(ex.getSQLState())
                 .append(" error code:")
                 .append(ex.getErrorCode()).toString());
+        this.dbState = ex.getSQLState();
+    }
+
+    public String getDbState() {
+        return dbState;
     }
 }
