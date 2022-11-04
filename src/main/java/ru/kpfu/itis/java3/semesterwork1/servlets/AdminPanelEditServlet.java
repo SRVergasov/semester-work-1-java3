@@ -35,7 +35,7 @@ public class AdminPanelEditServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String newRating = req.getParameter("newRating");
         if (validator.validate(newRating)) {
-            dbProcessor.setRating(Integer.parseInt(req.getParameter("id")), newRating);
+            dbProcessor.setRating(Integer.parseInt(req.getParameter("id")), Integer.parseInt(newRating));
             resp.sendRedirect(getServletContext().getContextPath() + "/panel");
         } else {
             String errorText = validator.getMessage();

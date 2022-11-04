@@ -10,6 +10,7 @@ import java.util.List;
 
 public class DBProcessor {
     private final Connection conn;
+    private PasswordHashProcessor hashProcessor = new PasswordHashProcessor();
 
     public DBProcessor(Connection conn) {
         this.conn = conn;
@@ -28,7 +29,7 @@ public class DBProcessor {
         List<User> userList = getUsersList();
         for (User u : userList) {
             if (u.getUsername().equals(username) &&
-                    u.getPassword().equals(DigestUtils.md5Hex(password))) {
+                    u.getPassword().equals(hashProcessor.generateHashedPassword(password))) {
                 return true;
             }
         }
@@ -52,7 +53,7 @@ public class DBProcessor {
             stmt.close();
             return list;
         } catch (SQLException e) {
-            throw new DBException(e.getMessage());
+            throw new DBException(e);
         }
     }
 
@@ -71,7 +72,7 @@ public class DBProcessor {
             }
             throw new DBException("not found");
         } catch (SQLException exception) {
-            throw new DBException(exception.getMessage());
+            throw new DBException(exception);
         }
     }
 
@@ -89,18 +90,33 @@ public class DBProcessor {
             }
             throw new DBException("not found");
         } catch (SQLException exception) {
-            throw new DBException(exception.getMessage());
+            throw new DBException(exception);
         }
     }
 
-    public void setRating(int userId, String rating) {
+    public void setRating(int userId, int rating) {
         try {
             PreparedStatement stmt = conn.prepareStatement(
-                    "update users set rating = '" + rating + "' where id = " + userId
+                    "update users set rating = ? where id = ?"
             );
+            stmt.setInt(1, rating);
+            stmt.setInt(2, userId);
             stmt.execute();
         } catch (SQLException exception) {
-            throw new DBException(exception.getMessage());
+            throw new DBException(exception);
+        }
+    }
+
+    public void addUser(String username, String password) {
+        try {
+            PreparedStatement stmt = conn.prepareStatement(
+                    "insert into users (username, password) values (?, ?);"
+            );
+            stmt.setString(1, username);
+            stmt.setString(2, hashProcessor.generateHashedPassword(password));
+            stmt.execute();
+        } catch (SQLException exception) {
+            throw new DBException(exception);
         }
     }
 

@@ -32,6 +32,9 @@
                 <c:if test="${empty userId}">
                     <li><a id="#link_auth" href="#" class="nav-link px-2 text-white">Auth</a></li>
                 </c:if>
+                <c:if test="${empty userId}">
+                    <li><a href="${pageContext.request.contextPath}/registration" class="nav-link px-2 text-white">Registration</a></li>
+                </c:if>
                 <c:if test="${not empty userId}">
                     <li><a href="${pageContext.request.contextPath}/profile" class="nav-link px-2 text-white">Profile</a></li>
                 </c:if>
