@@ -53,7 +53,7 @@ public class DBProcessor {
             stmt.close();
             return list;
         } catch (SQLException e) {
-            throw new DBException(e.getMessage());
+            throw new DBException(e);
         }
     }
 
@@ -72,7 +72,7 @@ public class DBProcessor {
             }
             throw new DBException("not found");
         } catch (SQLException exception) {
-            throw new DBException(exception.getMessage());
+            throw new DBException(exception);
         }
     }
 
@@ -90,7 +90,7 @@ public class DBProcessor {
             }
             throw new DBException("not found");
         } catch (SQLException exception) {
-            throw new DBException(exception.getMessage());
+            throw new DBException(exception);
         }
     }
 
@@ -103,20 +103,20 @@ public class DBProcessor {
             stmt.setInt(2, userId);
             stmt.execute();
         } catch (SQLException exception) {
-            throw new DBException(exception.getMessage());
+            throw new DBException(exception);
         }
     }
 
     public void addUser(String username, String password) {
         try {
             PreparedStatement stmt = conn.prepareStatement(
-                    "insert into users (username, password) (?, ?)"
+                    "insert into users (username, password) values (?, ?);"
             );
             stmt.setString(1, username);
             stmt.setString(2, hashProcessor.generateHashedPassword(password));
             stmt.execute();
         } catch (SQLException exception) {
-            throw new DBException(exception.getMessage());
+            throw new DBException(exception);
         }
     }
 
