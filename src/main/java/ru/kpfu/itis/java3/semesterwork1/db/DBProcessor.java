@@ -1,6 +1,6 @@
 package ru.kpfu.itis.java3.semesterwork1.db;
 
-import org.apache.commons.codec.digest.DigestUtils;
+import ru.kpfu.itis.java3.semesterwork1.entity.Question;
 import ru.kpfu.itis.java3.semesterwork1.entity.User;
 import ru.kpfu.itis.java3.semesterwork1.exceptions.DBException;
 
@@ -117,6 +117,26 @@ public class DBProcessor {
             stmt.execute();
         } catch (SQLException exception) {
             throw new DBException(exception);
+        }
+    }
+
+    public List<Question> getQuestionsList() {
+        ArrayList<Question> list = new ArrayList<>();
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(
+                    "SELECT * from questions order by id desc"
+            );
+            while (rs.next()) {
+                list.add(new Question(rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getString("description"),
+                        rs.getInt("user_id")));
+            }
+            stmt.close();
+            return list;
+        } catch (SQLException e) {
+            throw new DBException(e);
         }
     }
 
