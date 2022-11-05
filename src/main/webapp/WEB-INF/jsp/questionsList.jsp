@@ -13,8 +13,8 @@
                 <h1 class="display-4 fst-italic">${item.title}</h1>
                 <p class="lead my-3">${item.description}</p>
 <%--      TODO author, answers...         <p class="lead mb-0"><a href="#" class="text-white fw-bold">${item.}</a></p>--%>
-<%--                TODO button display full--%>
 <%--                TODO user avatar--%>
+                <p class="lead mb-0"><a href="${pageContext.request.contextPath}/questions/question?id=${item.id}" class="text-white fw-bold">Open</a></p>
 
             </div>
         </div>
