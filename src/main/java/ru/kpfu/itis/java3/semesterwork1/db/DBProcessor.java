@@ -16,6 +16,9 @@ public class DBProcessor {
         this.conn = conn;
     }
 
+    //TODO TrY-WiTh-ReSoUrCeS
+
+    //TODO change logic
     public boolean containsUser(String username) {
         for (User u : getUsersList()) {
             if (u.getUsername().equals(username)) {
