@@ -3,6 +3,7 @@ package ru.kpfu.itis.java3.semesterwork1.db;
 import ru.kpfu.itis.java3.semesterwork1.entity.Question;
 import ru.kpfu.itis.java3.semesterwork1.entity.User;
 import ru.kpfu.itis.java3.semesterwork1.exceptions.DBException;
+import ru.kpfu.itis.java3.semesterwork1.utils.PasswordHashGenerator;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class DBProcessor {
     private final Connection conn;
-    private PasswordHashProcessor hashProcessor = new PasswordHashProcessor();
+    private PasswordHashGenerator hashProcessor = new PasswordHashGenerator();
 
     public DBProcessor(Connection conn) {
         this.conn = conn;
