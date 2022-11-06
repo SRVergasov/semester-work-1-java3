@@ -31,18 +31,15 @@
                 <li><a href="${pageContext.request.contextPath}" class="nav-link px-2 text-white">Home</a></li>
                 <c:if test="${empty userId}">
                     <li><a id="#link_auth" href="#" class="nav-link px-2 text-white">Auth</a></li>
-                </c:if>
-                <c:if test="${empty userId}">
                     <li><a href="${pageContext.request.contextPath}/registration" class="nav-link px-2 text-white">Registration</a></li>
                 </c:if>
                 <c:if test="${not empty userId}">
                     <li><a href="${pageContext.request.contextPath}/profile" class="nav-link px-2 text-white">Profile</a></li>
+                    <li><a href="${pageContext.request.contextPath}/logout" class="nav-link px-2 text-white">Logout</a></li>
+                    <li><a href="${pageContext.request.contextPath}/questions/list" class="nav-link px-2 text-white">Questions</a></li>
                 </c:if>
                 <c:if test="${role == \"admin\"}">
                     <li><a href="${pageContext.request.contextPath}/panel" class="nav-link px-2 text-white">Panel</a></li>
-                </c:if>
-                <c:if test="${not empty userId}">
-                    <li><a href="${pageContext.request.contextPath}/logout" class="nav-link px-2 text-white">Logout</a></li>
                 </c:if>
             </ul>
             <div class="text-end px-2">
