@@ -4,13 +4,13 @@ public class Question {
     private int id;
     private String title;
     private String description;
-    private int user_id;
+    private int userId;
 
     public Question(int id, String title, String description, int user_id) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.user_id = user_id;
+        this.userId = user_id;
     }
 
     public int getId() {
@@ -37,12 +37,12 @@ public class Question {
         this.description = description;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class Question {
         Question question = (Question) o;
 
         if (id != question.id) return false;
-        if (user_id != question.user_id) return false;
+        if (userId != question.userId) return false;
         if (!title.equals(question.title)) return false;
         return description.equals(question.description);
     }
@@ -63,7 +63,7 @@ public class Question {
         int result = id;
         result = 31 * result + title.hashCode();
         result = 31 * result + description.hashCode();
-        result = 31 * result + user_id;
+        result = 31 * result + userId;
         return result;
     }
 
