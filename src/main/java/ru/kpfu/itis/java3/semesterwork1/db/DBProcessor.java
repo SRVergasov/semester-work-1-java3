@@ -6,7 +6,10 @@ import ru.kpfu.itis.java3.semesterwork1.entity.User;
 import ru.kpfu.itis.java3.semesterwork1.exceptions.DBException;
 import ru.kpfu.itis.java3.semesterwork1.utils.PasswordHashGenerator;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +20,6 @@ public class DBProcessor {
     public DBProcessor(Connection conn) {
         this.conn = conn;
     }
-
-    //TODO TrY-WiTh-ReSoUrCeS
 
     //TODO change logic
     public boolean containsUser(String username) {
@@ -43,11 +44,8 @@ public class DBProcessor {
 
     public List<User> getUsersList() {
         ArrayList<User> list = new ArrayList<>();
-        try {
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(
-                    "SELECT * from users order by id"
-            );
+        try (PreparedStatement stmt = conn.prepareStatement("SELECT * from users order by id")) {
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 list.add(new User(rs.getInt("id"),
                         rs.getString("username"),
@@ -55,7 +53,6 @@ public class DBProcessor {
                         rs.getInt("rating"),
                         rs.getString("role")));
             }
-            stmt.close();
             return list;
         } catch (SQLException e) {
             throw new DBException(e);
@@ -63,11 +60,9 @@ public class DBProcessor {
     }
 
     public User getUserByUsername(String username) {
-        try (Statement stmt = conn.createStatement()) {
-            ResultSet rs = stmt.executeQuery(
-                    //TODO more beautiful requests
-                    "SELECT * FROM users WHERE username = '" + username + "'"
-            );
+        try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM users WHERE username = ?")) {
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return new User(rs.getInt("id"),
                         rs.getString("username"),
@@ -82,10 +77,9 @@ public class DBProcessor {
     }
 
     public User getUserById(int id) {
-        try (Statement stmt = conn.createStatement()) {
-            ResultSet rs = stmt.executeQuery(
-                    "SELECT * FROM users WHERE id = " + id
-            );
+        try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM users WHERE id = ?")) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return new User(rs.getInt("id"),
                         rs.getString("username"),
@@ -100,10 +94,7 @@ public class DBProcessor {
     }
 
     public void setRating(int userId, int rating) {
-        try {
-            PreparedStatement stmt = conn.prepareStatement(
-                    "update users set rating = ? where id = ?"
-            );
+        try (PreparedStatement stmt = conn.prepareStatement("update users set rating = ? where id = ?")) {
             stmt.setInt(1, rating);
             stmt.setInt(2, userId);
             stmt.execute();
@@ -113,10 +104,7 @@ public class DBProcessor {
     }
 
     public void addUser(String username, String password) {
-        try {
-            PreparedStatement stmt = conn.prepareStatement(
-                    "insert into users (username, password) values (?, ?);"
-            );
+        try (PreparedStatement stmt = conn.prepareStatement("insert into users (username, password) values (?, ?);")) {
             stmt.setString(1, username);
             stmt.setString(2, hashProcessor.generateHashedPassword(password));
             stmt.execute();
@@ -127,18 +115,14 @@ public class DBProcessor {
 
     public List<Question> getQuestionsList() {
         ArrayList<Question> list = new ArrayList<>();
-        try {
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(
-                    "SELECT * from questions order by id desc"
-            );
+        try (PreparedStatement stmt = conn.prepareStatement("SELECT * from questions order by id desc")) {
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 list.add(new Question(rs.getInt("id"),
                         rs.getString("title"),
                         rs.getString("description"),
                         rs.getInt("user_id")));
             }
-            stmt.close();
             return list;
         } catch (SQLException e) {
             throw new DBException(e);
@@ -146,10 +130,9 @@ public class DBProcessor {
     }
 
     public Question getQuestionById(int id) {
-        try (Statement stmt = conn.createStatement()) {
-            ResultSet rs = stmt.executeQuery(
-                    "SELECT * from questions where id = " + id
-            );
+        try (PreparedStatement stmt = conn.prepareStatement("SELECT * from questions where id = ?")) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return new Question(rs.getInt("id"),
                         rs.getString("title"),
