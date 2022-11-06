@@ -1,5 +1,6 @@
 package ru.kpfu.itis.java3.semesterwork1.db;
 
+import ru.kpfu.itis.java3.semesterwork1.entity.Answer;
 import ru.kpfu.itis.java3.semesterwork1.entity.Question;
 import ru.kpfu.itis.java3.semesterwork1.entity.User;
 import ru.kpfu.itis.java3.semesterwork1.exceptions.DBException;
@@ -138,6 +139,47 @@ public class DBProcessor {
                         rs.getInt("user_id")));
             }
             stmt.close();
+            return list;
+        } catch (SQLException e) {
+            throw new DBException(e);
+        }
+    }
+
+    public Question getQuestionById(int id) {
+        try (Statement stmt = conn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(
+                    "SELECT * from questions where id = " + id
+            );
+            if (rs.next()) {
+                return new Question(rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getString("description"),
+                        rs.getInt("user_id"));
+            }
+            throw new DBException("not found question");
+        } catch (SQLException e) {
+            throw new DBException(e);
+        }
+    }
+
+    public List<Answer> getAnswersList(int questionId) {
+        ArrayList<Answer> list = new ArrayList<>();
+        try (PreparedStatement stmt = conn.prepareStatement("select * from answers where is_best = true and question = ? union select * from answers where question = ? order by likes")) {
+            stmt.setInt(1, questionId);
+            stmt.setInt(2, questionId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                list.add(
+                        new Answer(
+                                rs.getInt("id"),
+                                rs.getString("text"),
+                                rs.getInt("question"),
+                                rs.getInt("user_id"),
+                                rs.getInt("likes"),
+                                rs.getBoolean("is_best")
+                        )
+                );
+            }
             return list;
         } catch (SQLException e) {
             throw new DBException(e);
