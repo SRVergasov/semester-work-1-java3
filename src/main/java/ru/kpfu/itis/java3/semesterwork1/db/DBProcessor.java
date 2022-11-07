@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO init in listener
 public class DBProcessor {
     private final Connection conn;
     private PasswordHashGenerator hashProcessor;
@@ -111,6 +112,17 @@ public class DBProcessor {
             stmt.execute();
         } catch (SQLException exception) {
             throw new DBException(exception);
+        }
+    }
+
+    public void addAnswer(int questionId, int userId, String text) {
+        try (PreparedStatement stmt = conn.prepareStatement("insert into answers (text, question, user_id) values (?, ?, ?)")) {
+            stmt.setString(1, text);
+            stmt.setInt(2, questionId);
+            stmt.setInt(3, userId);
+            stmt.execute();
+        } catch (SQLException ex) {
+            throw new DBException(ex);
         }
     }
 
