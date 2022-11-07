@@ -15,10 +15,11 @@ import java.util.List;
 
 public class DBProcessor {
     private final Connection conn;
-    private PasswordHashGenerator hashProcessor = new PasswordHashGenerator();
+    private PasswordHashGenerator hashProcessor;
 
     public DBProcessor(Connection conn) {
         this.conn = conn;
+        hashProcessor = new PasswordHashGenerator();
     }
 
     //TODO change logic
