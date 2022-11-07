@@ -4,7 +4,7 @@ public class Answer {
     private int id;
     private String text;
     private int question;
-    private int user_id;
+    private int userId;
     private int likes;
     private boolean isBest;
 
@@ -20,7 +20,7 @@ public class Answer {
         this.id = id;
         this.text = text;
         this.question = question;
-        this.user_id = user_id;
+        this.userId = user_id;
         this.likes = likes;
         this.isBest = isBest;
     }
@@ -49,12 +49,12 @@ public class Answer {
         this.question = question;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public int getLikes() {
@@ -82,7 +82,7 @@ public class Answer {
 
         if (id != answer.id) return false;
         if (question != answer.question) return false;
-        if (user_id != answer.user_id) return false;
+        if (userId != answer.userId) return false;
         if (likes != answer.likes) return false;
         if (isBest != answer.isBest) return false;
         return text.equals(answer.text);
@@ -93,7 +93,7 @@ public class Answer {
         int result = id;
         result = 31 * result + text.hashCode();
         result = 31 * result + question;
-        result = 31 * result + user_id;
+        result = 31 * result + userId;
         result = 31 * result + likes;
         result = 31 * result + (isBest ? 1 : 0);
         return result;

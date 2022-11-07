@@ -26,30 +26,28 @@ public class AuthServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // TODO encapsulate
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        if (inputValidator.validate(username, password)) {
-            if (dbProcessor.containsUser(username)) {
-                if (dbProcessor.authUser(username, password)) {
-                    User user = dbProcessor.getUserByUsername(username);
-                    req.getSession().setAttribute("userId", user.getId());
-                    req.getSession().setAttribute("name", user.getUsername());
-                    req.getSession().setAttribute("role", user.getRole());
-                    resp.sendRedirect(getServletContext().getContextPath() +  "/profile");
-                } else {
-                    String errorText = "incorrect password";
-                    req.setAttribute("errorText", errorText);
-                    getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
-                }
-            } else {
-                String errorText = username + " " + "not found";
-                req.setAttribute("errorText", errorText);
-                getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
-            }
-        } else {
-            String errorText = inputValidator.getMessage();
-            req.setAttribute("errorText", errorText);
+        if(!inputValidator.validate(username, password)) {
+            req.setAttribute("errorText", inputValidator.getMessage());
             getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
+            return;
         }
+        if (!dbProcessor.containsUser(username)) {
+            req.setAttribute("errorText", username + " not found");
+            getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
+            return;
+        }
+        if (!dbProcessor.authUser(username, password)) {
+            req.setAttribute("errorText", "incorrect password");
+            getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
+            return;
+        }
+        User user = dbProcessor.getUserByUsername(username);
+        req.getSession().setAttribute("userId", user.getId());
+        req.getSession().setAttribute("name", user.getUsername());
+        req.getSession().setAttribute("role", user.getRole());
+        resp.sendRedirect(getServletContext().getContextPath() +  "/profile");
     }
 }

@@ -29,6 +29,7 @@ public class RegistrationServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("title", "Registration");
         getServletContext().getRequestDispatcher("/WEB-INF/jsp/registration.jsp").forward(req, resp);
     }
 

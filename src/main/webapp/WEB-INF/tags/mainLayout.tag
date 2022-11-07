@@ -5,20 +5,8 @@
 
 <head>
     <title>${title}</title>
-    <style>
-<%--TODO css file--%>
-        .b-example-divider {
-            height: 3rem;
-            background-color: rgba(0, 0, 0, .1);
-            border: solid rgba(0, 0, 0, .15);
-            border-width: 1px 0;
-            box-shadow: inset 0 0.5em 1.5em rgb(0 0 0 / 10%), inset 0 0.125em 0.5em rgb(0 0 0 / 15%);
-        }
-        .form-signin {
-            max-width: 330px;
-            padding: 15px;
-        }
-    </style>
+    <link rel="stylesheet" href="<c:url value="/static/css/styles.css"/>">
+    <script defer src="<c:url value="/static/js/authViewScript.js"/>"></script>
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
@@ -58,17 +46,3 @@
     <jsp:doBody/>
 </div>
 </body>
-<script>
-<%--  TODO other file  --%>
-    let form = document.getElementById("#auth_form");
-    let body = document.getElementById("#main");
-    document.getElementById("#link_auth").addEventListener('click', function () {
-        form.style.display = 'block';
-        body.style.display = 'none';
-    });
-
-    document.getElementById("#btn_close").addEventListener('click', function () {
-        form.style.display = 'none';
-        body.style.display = 'block';
-    });
-</script>
