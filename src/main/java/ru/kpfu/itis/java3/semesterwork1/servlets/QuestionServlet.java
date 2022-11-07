@@ -21,6 +21,7 @@ public class QuestionServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("title", "Answers");
         int questionId = Integer.parseInt(req.getParameter("id"));
         req.setAttribute("question", dbProcessor.getQuestionById(questionId));
         req.setAttribute("answersList", dbProcessor.getAnswersList(questionId));
