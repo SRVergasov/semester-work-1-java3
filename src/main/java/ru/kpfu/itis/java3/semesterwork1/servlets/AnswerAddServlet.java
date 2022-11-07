@@ -21,11 +21,9 @@ public class AnswerAddServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //TODO logic add answer
         int questionId = Integer.parseInt(req.getParameter("questionId"));
         int userId = Integer.parseInt(req.getParameter("userId"));
         String text = req.getParameter("text");
-        System.out.println("" + questionId + " " + userId + " " + text);
         if (text.isEmpty()) {
             req.setAttribute("errorText", "Empty text field");
             getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
