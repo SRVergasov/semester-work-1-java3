@@ -2,7 +2,7 @@
 <%@ taglib prefix="layout" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<layout:mainLayout>
+<layout:mainLayout jsFiles="answerAddingViewScript.js">
 
     <layout:question question="${question}">
 
@@ -26,12 +26,3 @@
 
 
 </layout:mainLayout>
-<%--TODO other file (ex. forTokens)--%>
-<script>
-    let addButton = document.getElementById('#btn_add_answer');
-    let addAnswerForm = document.getElementById("#form_add_answer");
-    addButton.addEventListener('click', function () {
-        addAnswerForm.style.display = "block";
-        addButton.style.display = "none";
-    });
-</script>
