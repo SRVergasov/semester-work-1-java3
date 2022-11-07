@@ -3,21 +3,12 @@
 <%@taglib prefix="layout" tagdir="/WEB-INF/tags" %>
 
 <layout:mainLayout>
-
-
+    <h1>Here all users</h1>
+    <hr>
     <c:forEach items="${userList}" var="item">
-        <div class="card" style="width: 18rem;">
-                <%-- TODO avatar       <img src="..." class="card-img-top" alt="...">--%>
-            <div class="card-body">
-                <h5 class="card-title">User <c:out value="${item.id}" /></h5>
-                <p class="card-text">
-                    Name: <c:out value="${item.username}" /><br>
-                    Rating: <c:out value="${item.rating}" /><br>
-                </p>
-        <a href="${pageContext.request.contextPath}/panel/edit?id=${item.id}" class="btn btn-primary">Edit rating</a>
-            </div>
-        </div>
+        <layout:profile user="${item}">
+            <a href="${pageContext.request.contextPath}/panel/edit?id=${item.id}" class="btn btn-secondary">Edit rating</a>
+        </layout:profile>
+        <hr>
     </c:forEach>
-
 </layout:mainLayout>
-
