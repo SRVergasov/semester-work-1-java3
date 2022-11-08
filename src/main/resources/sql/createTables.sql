@@ -21,9 +21,11 @@ create table answers (
 );
 
 create table likes (
-    id bigserial,
+    id bigserial primary key,
     user_id bigint references users,
-    answer_id bigint references answers
+    answer_id bigint references answers,
+    unique (user_id, answer_id),
+    enabled boolean default false
 );
 
 alter table questions add column best_answer bigint references answers;

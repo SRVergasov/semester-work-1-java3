@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO DAO
+//TODO repository
 public class DBProcessor {
     private final Connection conn;
     private PasswordHashGenerator hashProcessor;
@@ -189,6 +191,42 @@ public class DBProcessor {
             return list;
         } catch (SQLException e) {
             throw new DBException(e);
+        }
+    }
+
+    public void addLike(int userId, int answerId) {
+        try {
+            PreparedStatement stmt = conn.prepareStatement("select * from likes where user_id = ? and answer_id = ?");
+            stmt.setInt(1, userId);
+            stmt.setInt(2, answerId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                boolean enabled = rs.getBoolean("enabled");
+                stmt = conn.prepareStatement("update likes set enabled = ? where user_id = ? and answer_id = ?");
+                stmt.setBoolean(1, !enabled);
+                stmt.setInt(2, userId);
+                stmt.setInt(3, answerId);
+                stmt.execute();
+                return;
+            }
+            stmt = conn.prepareStatement("insert into likes (user_id, answer_id, enabled) values (?, ?, ?)");
+            stmt.setInt(1, userId);
+            stmt.setInt(2, answerId);
+            stmt.setBoolean(3, true);
+            stmt.execute();
+        } catch (SQLException ex) {
+            throw new DBException("Cannot set like", ex);
+        }
+    }
+
+    public void updateAnswerLikes(int answerId) {
+        try {
+            PreparedStatement stmt = conn.prepareStatement("update answers set likes = (select count(*) from likes where answer_id = ? and enabled = true) where id = ?");
+            stmt.setInt(1, answerId);
+            stmt.setInt(2, answerId);
+            stmt.execute();
+        } catch (SQLException ex) {
+            throw new DBException("Cannot update likes in answer", ex);
         }
     }
 
