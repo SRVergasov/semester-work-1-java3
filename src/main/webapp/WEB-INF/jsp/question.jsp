@@ -8,12 +8,6 @@
 
     </layout:question>
 
-    <c:forEach items="${answersList}" var="answer">
-        <layout:answer answer="${answer}">
-
-        </layout:answer>
-    </c:forEach>
-
     <button id="#btn_add_answer" type="button" class="btn btn-secondary">Add answer</button>
     <div id="#form_add_answer" style="display: none">
         <p>Write answer</p>
@@ -22,6 +16,12 @@
             <input title="submit" type="submit">
         </form>
     </div>
+
+    <c:forEach items="${answersList}" var="answer">
+        <layout:answer answer="${answer}">
+
+        </layout:answer>
+    </c:forEach>
 
 
 
