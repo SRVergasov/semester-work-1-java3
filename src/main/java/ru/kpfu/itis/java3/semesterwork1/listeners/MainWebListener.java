@@ -1,8 +1,11 @@
 package ru.kpfu.itis.java3.semesterwork1.listeners;
 
-import ru.kpfu.itis.java3.semesterwork1.db.DBConnection;
+import ru.kpfu.itis.java3.semesterwork1.dao.AnswerDao;
+import ru.kpfu.itis.java3.semesterwork1.dao.QuestionDao;
+import ru.kpfu.itis.java3.semesterwork1.dao.UserDao;
+import ru.kpfu.itis.java3.semesterwork1.db.DBConnectionProvider;
 import ru.kpfu.itis.java3.semesterwork1.db.DBProcessor;
-import ru.kpfu.itis.java3.semesterwork1.exceptions.DBConnectionException;
+import ru.kpfu.itis.java3.semesterwork1.exceptions.DBException;
 import ru.kpfu.itis.java3.semesterwork1.exceptions.PropertyLoadException;
 
 import javax.servlet.ServletContextEvent;
@@ -24,7 +27,7 @@ public class MainWebListener implements ServletContextListener {
 
     private void initProperties() {
         Properties prop = new Properties();
-        try (InputStreamReader reader = new InputStreamReader(Objects.requireNonNull(getClass().getResourceAsStream("/app.properties")))) {
+        try (InputStreamReader reader = new InputStreamReader((getClass().getResourceAsStream("/app.properties")))) {
             prop.load(reader);
             this.url = prop.getProperty("dbUrl");
             this.username = prop.getProperty("dbUsername");
@@ -32,24 +35,30 @@ public class MainWebListener implements ServletContextListener {
             this.driver = prop.getProperty("dbDriver");
             this.dbName = prop.getProperty("dbName");
         } catch (IOException e) {
-            throw new PropertyLoadException(this.toString());
+            throw new PropertyLoadException("Cannot get configuration params", e);
         }
     }
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-
         initProperties();
-        sce.getServletContext().setAttribute("dbProcessor", new DBProcessor(initDbConnection()));
+        try {
+            Connection connection = initDbConnection();
+            sce.getServletContext().setAttribute("userDao", new UserDao(connection));
+            sce.getServletContext().setAttribute("questionDao", new QuestionDao(connection));
+            sce.getServletContext().setAttribute("answerDao", new AnswerDao(connection));
+        } catch (DBException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
-    private Connection initDbConnection() {
+    private Connection initDbConnection() throws DBException {
         try {
             Class.forName(driver);
-            return DBConnection.getInstance(url, dbName, username, password);
+            return DBConnectionProvider.getInstance(url, dbName, username, password);
         } catch (ClassNotFoundException e) {
-            throw new DBConnectionException(e.getMessage());
+            throw new DBException("Cannot init connection with db", e);
         }
     }
 }

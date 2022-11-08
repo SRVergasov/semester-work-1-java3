@@ -3,7 +3,7 @@ package ru.kpfu.itis.java3.semesterwork1.exceptions;
 import javax.ws.rs.DELETE;
 import java.sql.SQLException;
 
-public class DBException extends RuntimeException {
+public class DBException extends Exception {
 
     public DBException() {
         super();
@@ -17,13 +17,7 @@ public class DBException extends RuntimeException {
         super(message, cause);
     }
 
-    @Deprecated
-    public DBException(SQLException ex) {
-        this(new StringBuffer(ex.getMessage())
-                .append(" db state:")
-                .append(ex.getSQLState())
-                .append(" error code:")
-                .append(ex.getErrorCode()).toString());
+    public DBException(Throwable cause) {
+        super(cause);
     }
-
 }
