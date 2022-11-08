@@ -13,5 +13,5 @@
 <p class="blog-post-meta">User: ${answer.userId}</p>
 <small class="opacity-50 text-nowrap">Likes: ${answer.likes}</small>
 <%--TODO btn color from servlet--%>
-<a href="${pageContext.request.contextPath}/questions/add_like?answerId=${answer.id}&questionId=${answer.question}" class="btn" style="color: #efefef">Like</a>
+<a href="${pageContext.request.contextPath}/questions/add_like?answerId=${answer.id}&questionId=${answer.question}" class="btn" style="color: #ff2400">Like</a>
 <hr>
