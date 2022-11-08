@@ -28,7 +28,7 @@
                 <c:if test="${not empty userId}">
                     <li><a href="${pageContext.request.contextPath}/profile" class="nav-link px-2 text-white">Profile</a></li>
                     <li><a href="${pageContext.request.contextPath}/logout" class="nav-link px-2 text-white">Logout</a></li>
-                    <li><a href="${pageContext.request.contextPath}/questions/list" class="nav-link px-2 text-white">Questions</a></li>
+                    <li><a href="${pageContext.request.contextPath}/questions" class="nav-link px-2 text-white">Questions</a></li>
                 </c:if>
                 <c:if test="${role == \"admin\"}">
                     <li><a href="${pageContext.request.contextPath}/panel" class="nav-link px-2 text-white">Panel</a></li>

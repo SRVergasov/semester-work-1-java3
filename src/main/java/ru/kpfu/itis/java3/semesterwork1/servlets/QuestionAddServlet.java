@@ -34,7 +34,7 @@ public class QuestionAddServlet extends HttpServlet {
         }
         try {
             questionDao.addQuestion(userId, title, description);
-            resp.sendRedirect(getServletContext().getContextPath() + "/questions/list");
+            resp.sendRedirect(getServletContext().getContextPath() + "/questions");
         } catch (DBException e) {
             req.setAttribute("errorText", e.getMessage());
             getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
