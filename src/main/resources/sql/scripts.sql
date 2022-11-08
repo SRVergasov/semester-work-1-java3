@@ -11,4 +11,20 @@ select * from answers where question = 1 order by is_best desc;
 select * from questions order by id desc;
 
 -- Selecting answers list
+-- FIXME
 select * from answers where is_best = true and question = 1 union select * from answers where question = 1 order by likes;
+
+-- selecting 1 like
+select * from likes where user_id = 1 and 2 = answer_id;
+
+-- setting enabled to like
+update likes set enabled = true where answer_id = 2 and user_id = 1;
+
+-- get likes count
+select count(*) from likes where answer_id = 1;
+
+-- set likes count
+update answers set likes = (select count(*) from likes where answer_id = ? and enabled = true) where id = ?
+
+-- updating user rating
+update users set rating = rating + 10 where id = 1;

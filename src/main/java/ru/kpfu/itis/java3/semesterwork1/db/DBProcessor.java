@@ -13,6 +13,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO DAO
+//TODO repository
+//TODO refactor
 public class DBProcessor {
     private final Connection conn;
     private PasswordHashGenerator hashProcessor;
@@ -189,6 +192,72 @@ public class DBProcessor {
             return list;
         } catch (SQLException e) {
             throw new DBException(e);
+        }
+    }
+
+
+    /**
+     *
+     * @param userId - user id
+     * @param answerId - answer id
+     * @return true if like enabled (enabled set true). else if disabled (enabled set false)
+     */
+    public boolean addLike(int userId, int answerId) {
+        try {
+            PreparedStatement stmt = conn.prepareStatement("select * from likes where user_id = ? and answer_id = ?");
+            stmt.setInt(1, userId);
+            stmt.setInt(2, answerId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                boolean enabled = rs.getBoolean("enabled");
+                stmt = conn.prepareStatement("update likes set enabled = ? where user_id = ? and answer_id = ?");
+                stmt.setBoolean(1, !enabled);
+                stmt.setInt(2, userId);
+                stmt.setInt(3, answerId);
+                stmt.execute();
+                return !enabled;
+            }
+            stmt = conn.prepareStatement("insert into likes (user_id, answer_id, enabled) values (?, ?, ?)");
+            stmt.setInt(1, userId);
+            stmt.setInt(2, answerId);
+            stmt.setBoolean(3, true);
+            stmt.execute();
+            return true;
+        } catch (SQLException ex) {
+            throw new DBException("Cannot set like", ex);
+        }
+    }
+
+    public void updateAnswerLikes(int answerId) {
+        try (PreparedStatement stmt = conn.prepareStatement("update answers set likes = (select count(*) from likes where answer_id = ? and enabled = true) where id = ?");) {
+            stmt.setInt(1, answerId);
+            stmt.setInt(2, answerId);
+            stmt.execute();
+        } catch (SQLException ex) {
+            throw new DBException("Cannot update likes in answer", ex);
+        }
+    }
+
+    public void updateRating(int userId, int value) {
+        try (PreparedStatement stmt = conn.prepareStatement("update users set rating = rating + ? where id = ?")) {
+            stmt.setInt(1, value);
+            stmt.setInt(2, userId);
+            stmt.execute();
+        } catch (SQLException ex) {
+            throw new DBException("Cannot update user rating", ex);
+        }
+    }
+
+    public Answer getAnswerById(int id) {
+        try (PreparedStatement stmt = conn.prepareStatement("select * from answers where id = ?")) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new Answer(rs.getInt("id"), rs.getString("text"), rs.getInt("question"), rs.getInt("user_id"));
+            }
+            throw new DBException("Cannot get answer");
+        } catch (SQLException ex) {
+            throw new DBException("Cannot get answer", ex);
         }
     }
 

@@ -11,6 +11,7 @@
 <%--            TODO best answer--%>
 <h2 class="blog-post-title">${answer.text}</h2>
 <p class="blog-post-meta">User: ${answer.userId}</p>
-<small class="opacity-50 text-nowrap">Likes: ${1}</small>
-<%--                TODO button like--%>
+<small class="opacity-50 text-nowrap">Likes: ${answer.likes}</small>
+<%--TODO btn color from servlet--%>
+<a href="${pageContext.request.contextPath}/questions/add_like?answerId=${answer.id}&questionId=${answer.question}" class="btn" style="color: #efefef">Like</a>
 <hr>
