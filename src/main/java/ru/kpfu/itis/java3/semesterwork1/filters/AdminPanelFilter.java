@@ -1,7 +1,5 @@
 package ru.kpfu.itis.java3.semesterwork1.filters;
 
-import ru.kpfu.itis.java3.semesterwork1.entity.User;
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebFilter;

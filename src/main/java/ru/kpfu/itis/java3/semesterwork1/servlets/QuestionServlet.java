@@ -2,7 +2,6 @@ package ru.kpfu.itis.java3.semesterwork1.servlets;
 
 import ru.kpfu.itis.java3.semesterwork1.dao.AnswerDao;
 import ru.kpfu.itis.java3.semesterwork1.dao.QuestionDao;
-import ru.kpfu.itis.java3.semesterwork1.db.DBProcessor;
 import ru.kpfu.itis.java3.semesterwork1.entity.Answer;
 import ru.kpfu.itis.java3.semesterwork1.exceptions.DBException;
 
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Connection;
 import java.util.List;
 
 @WebServlet("/questions/question")

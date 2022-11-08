@@ -1,8 +1,5 @@
 package ru.kpfu.itis.java3.semesterwork1.exceptions;
 
-import javax.ws.rs.DELETE;
-import java.sql.SQLException;
-
 public class DBException extends Exception {
 
     public DBException() {

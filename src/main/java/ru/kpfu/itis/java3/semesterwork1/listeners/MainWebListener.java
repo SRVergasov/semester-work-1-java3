@@ -4,7 +4,6 @@ import ru.kpfu.itis.java3.semesterwork1.dao.AnswerDao;
 import ru.kpfu.itis.java3.semesterwork1.dao.QuestionDao;
 import ru.kpfu.itis.java3.semesterwork1.dao.UserDao;
 import ru.kpfu.itis.java3.semesterwork1.db.DBConnectionProvider;
-import ru.kpfu.itis.java3.semesterwork1.db.DBProcessor;
 import ru.kpfu.itis.java3.semesterwork1.exceptions.DBException;
 import ru.kpfu.itis.java3.semesterwork1.exceptions.PropertyLoadException;
 
@@ -14,7 +13,6 @@ import javax.servlet.annotation.WebListener;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.Connection;
-import java.util.Objects;
 import java.util.Properties;
 
 @WebListener("")

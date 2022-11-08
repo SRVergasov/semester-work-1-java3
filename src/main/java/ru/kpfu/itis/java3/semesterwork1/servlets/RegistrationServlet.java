@@ -1,7 +1,6 @@
 package ru.kpfu.itis.java3.semesterwork1.servlets;
 
 import ru.kpfu.itis.java3.semesterwork1.dao.UserDao;
-import ru.kpfu.itis.java3.semesterwork1.db.DBProcessor;
 import ru.kpfu.itis.java3.semesterwork1.entity.User;
 import ru.kpfu.itis.java3.semesterwork1.exceptions.DBException;
 import ru.kpfu.itis.java3.semesterwork1.validators.RegistrationInputValidator;

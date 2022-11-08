@@ -1,8 +1,5 @@
 package ru.kpfu.itis.java3.semesterwork1.validators;
 
-import org.apache.commons.codec.binary.StringUtils;
-
-//TODO change city to something
 public class RatingInputValidator {
     private String message = "";
 
