@@ -126,6 +126,17 @@ public class DBProcessor {
         }
     }
 
+    public void addQuestion(int userId, String title, String description) {
+        try (PreparedStatement stmt = conn.prepareStatement("insert into questions (title, description, user_id) values (?, ?, ?)")) {
+            stmt.setString(1, title);
+            stmt.setString(2, description);
+            stmt.setInt(3, userId);
+            stmt.execute();
+        } catch (SQLException ex) {
+            throw new DBException("cannot add question", ex);
+        }
+    }
+
     public List<Question> getQuestionsList() {
         ArrayList<Question> list = new ArrayList<>();
         try (PreparedStatement stmt = conn.prepareStatement("SELECT * from questions order by id desc")) {
