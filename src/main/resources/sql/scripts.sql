@@ -25,3 +25,6 @@ select count(*) from likes where answer_id = 1;
 
 -- set likes count
 update answers set likes = (select count(*) from likes where answer_id = ? and enabled = true) where id = ?
+
+-- updating user rating
+update users set rating = rating + 10 where id = 1;

@@ -24,8 +24,12 @@ public class LikeAddServlet extends HttpServlet {
         int userId = (int) req.getSession().getAttribute("userId");
         int answerId = Integer.parseInt(req.getParameter("answerId"));
         int questionId = Integer.parseInt(req.getParameter("questionId"));
-        dbProcessor.addLike(userId, answerId);
-        //TODO update user rating
+        int authorId = dbProcessor.getAnswerById(answerId).getUserId();
+        if (dbProcessor.addLike(userId, answerId)) {
+            dbProcessor.updateRating(authorId, 1);
+        } else {
+            dbProcessor.updateRating(authorId, -1);
+        }
         resp.sendRedirect(getServletContext().getContextPath() + "/questions/question?id=" + questionId);
 
     }

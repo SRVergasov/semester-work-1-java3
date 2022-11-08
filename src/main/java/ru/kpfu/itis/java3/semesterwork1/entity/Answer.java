@@ -8,19 +8,19 @@ public class Answer {
     private int likes;
     private boolean isBest;
 
-    public Answer(int id, String text, int question, int user_id) {
-        this(id, text, question, user_id, 0, false);
+    public Answer(int id, String text, int question, int userId) {
+        this(id, text, question, userId, 0, false);
     }
 
-    public Answer(int id, String text, int question, int user_id, int likes) {
-        this(id, text, question, user_id, likes, false);
+    public Answer(int id, String text, int question, int userId, int likes) {
+        this(id, text, question, userId, likes, false);
     }
 
-    public Answer(int id, String text, int question, int user_id, int likes, boolean isBest) {
+    public Answer(int id, String text, int question, int userId, int likes, boolean isBest) {
         this.id = id;
         this.text = text;
         this.question = question;
-        this.userId = user_id;
+        this.userId = userId;
         this.likes = likes;
         this.isBest = isBest;
     }
