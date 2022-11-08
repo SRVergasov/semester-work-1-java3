@@ -16,8 +16,7 @@ public class QuestionsListServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        dbProcessor = new DBProcessor((Connection) getServletContext().getAttribute("dbConnection"));
-    }
+        dbProcessor = (DBProcessor) getServletContext().getAttribute("dbProcessor");    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

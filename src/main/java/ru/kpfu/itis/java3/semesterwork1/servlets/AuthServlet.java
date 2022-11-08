@@ -21,7 +21,7 @@ public class AuthServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         inputValidator = new AuthInputValidator();
-        dbProcessor = new DBProcessor((Connection) getServletContext().getAttribute("dbConnection"));
+        dbProcessor = (DBProcessor) getServletContext().getAttribute("dbProcessor");
     }
 
     @Override

@@ -1,6 +1,7 @@
 package ru.kpfu.itis.java3.semesterwork1.listeners;
 
 import ru.kpfu.itis.java3.semesterwork1.db.DBConnection;
+import ru.kpfu.itis.java3.semesterwork1.db.DBProcessor;
 import ru.kpfu.itis.java3.semesterwork1.exceptions.DBConnectionException;
 import ru.kpfu.itis.java3.semesterwork1.exceptions.PropertyLoadException;
 
@@ -39,7 +40,7 @@ public class MainWebListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
 
         initProperties();
-        sce.getServletContext().setAttribute("dbConnection", initDbConnection());
+        sce.getServletContext().setAttribute("dbProcessor", new DBProcessor(initDbConnection()));
 
     }
 

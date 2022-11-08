@@ -24,7 +24,7 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         registrationInputValidator = new RegistrationInputValidator();
-        dbProcessor = new DBProcessor((Connection) getServletContext().getAttribute("dbConnection"));
+        dbProcessor = (DBProcessor) getServletContext().getAttribute("dbProcessor");
     }
 
     @Override

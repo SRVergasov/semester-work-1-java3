@@ -16,7 +16,7 @@ public class AnswerAddServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        dbProcessor = new DBProcessor((Connection) getServletContext().getAttribute("dbConnection"));
+        dbProcessor = (DBProcessor) getServletContext().getAttribute("dbProcessor");
     }
 
     @Override

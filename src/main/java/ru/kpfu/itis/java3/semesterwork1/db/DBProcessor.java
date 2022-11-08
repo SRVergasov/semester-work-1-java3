@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO init in listener
 public class DBProcessor {
     private final Connection conn;
     private PasswordHashGenerator hashProcessor;

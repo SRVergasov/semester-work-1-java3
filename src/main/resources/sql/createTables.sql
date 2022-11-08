@@ -20,6 +20,12 @@ create table answers (
     likes bigint constraint positive_likes check ( likes >= 0 )
 );
 
+create table likes (
+    id bigserial,
+    user_id bigint references users,
+    answer_id bigint references answers
+);
+
 alter table questions add column best_answer bigint references answers;
 alter table answers add constraint nn_user_id check ( user_id is not null );
 alter table answers alter column likes set default 0;
