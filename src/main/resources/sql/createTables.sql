@@ -38,4 +38,4 @@ alter table users add column role varchar constraint users_roles_choice check ( 
 alter table questions alter column description drop not null;
 alter table questions alter column description set default '';
 
--- TODO dates
+-- TODO dates, emails?

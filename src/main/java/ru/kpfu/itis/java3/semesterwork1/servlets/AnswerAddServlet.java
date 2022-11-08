@@ -1,6 +1,8 @@
 package ru.kpfu.itis.java3.semesterwork1.servlets;
 
+import ru.kpfu.itis.java3.semesterwork1.dao.AnswerDao;
 import ru.kpfu.itis.java3.semesterwork1.db.DBProcessor;
+import ru.kpfu.itis.java3.semesterwork1.exceptions.DBException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,15 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Connection;
 
 @WebServlet("/questions/add_answer")
 public class AnswerAddServlet extends HttpServlet {
-    private DBProcessor dbProcessor;
+    private AnswerDao answerDao;
 
     @Override
     public void init() throws ServletException {
-        dbProcessor = (DBProcessor) getServletContext().getAttribute("dbProcessor");
+        answerDao = (AnswerDao) getServletContext().getAttribute("answerDao");
     }
 
     @Override
@@ -29,7 +30,13 @@ public class AnswerAddServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
             return;
         }
-        dbProcessor.addAnswer(questionId, userId, text);
+        try {
+            answerDao.addAnswer(questionId, userId, text);
+        } catch (DBException e) {
+            req.setAttribute("errorText", e.getMessage());
+            getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
+            return;
+        }
         resp.sendRedirect(getServletContext().getContextPath() + "/questions/question?id=" + questionId);
     }
 }

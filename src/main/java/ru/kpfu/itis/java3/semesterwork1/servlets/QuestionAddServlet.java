@@ -1,6 +1,8 @@
 package ru.kpfu.itis.java3.semesterwork1.servlets;
 
+import ru.kpfu.itis.java3.semesterwork1.dao.QuestionDao;
 import ru.kpfu.itis.java3.semesterwork1.db.DBProcessor;
+import ru.kpfu.itis.java3.semesterwork1.exceptions.DBException;
 import ru.kpfu.itis.java3.semesterwork1.validators.AddQuestionInputValidator;
 
 import javax.servlet.ServletException;
@@ -9,16 +11,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Connection;
 
 @WebServlet("/questions/add_question")
 public class QuestionAddServlet extends HttpServlet {
-    private DBProcessor dbProcessor;
+    private QuestionDao questionDao;
     private AddQuestionInputValidator inputValidator;
 
     @Override
     public void init() throws ServletException {
-        dbProcessor = (DBProcessor) getServletContext().getAttribute("dbProcessor");
+        questionDao = (QuestionDao) getServletContext().getAttribute("questionDao");
         inputValidator = new AddQuestionInputValidator();
     }
 
@@ -32,7 +33,12 @@ public class QuestionAddServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
             return;
         }
-        dbProcessor.addQuestion(userId, title, description);
-        resp.sendRedirect(getServletContext().getContextPath() + "/questions/list");
+        try {
+            questionDao.addQuestion(userId, title, description);
+            resp.sendRedirect(getServletContext().getContextPath() + "/questions/list");
+        } catch (DBException e) {
+            req.setAttribute("errorText", e.getMessage());
+            getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
+        }
     }
 }
