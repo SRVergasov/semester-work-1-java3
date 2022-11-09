@@ -30,9 +30,8 @@ public class AnswerDao {
 
     public List<Answer> getAnswersList(int questionId) throws DBException {
         ArrayList<Answer> list = new ArrayList<>();
-        try (PreparedStatement stmt = conn.prepareStatement("select * from answers where is_best = true and question = ? union select * from answers where question = ? order by likes")) {
+        try (PreparedStatement stmt = conn.prepareStatement("select * from answers where question = ? order by likes desc")) {
             stmt.setInt(1, questionId);
-            stmt.setInt(2, questionId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 list.add(
@@ -55,7 +54,7 @@ public class AnswerDao {
     /**
      * @param userId   - user id
      * @param answerId - answer id
-     * @return true if like enabled (enabled set true). else if disabled (enabled set false)
+     * @return true if like added. else if deleted
      */
     public boolean like(int userId, int answerId) throws DBException {
         try {
@@ -64,18 +63,15 @@ public class AnswerDao {
             stmt.setInt(2, answerId);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                boolean enabled = rs.getBoolean("enabled");
-                stmt = conn.prepareStatement("update likes set enabled = ? where user_id = ? and answer_id = ?");
-                stmt.setBoolean(1, !enabled);
-                stmt.setInt(2, userId);
-                stmt.setInt(3, answerId);
+                stmt = conn.prepareStatement("delete from likes where user_id = ? and answer_id = ?");
+                stmt.setInt(1, userId);
+                stmt.setInt(2, answerId);
                 stmt.execute();
-                return !enabled;
+                return false;
             }
-            stmt = conn.prepareStatement("insert into likes (user_id, answer_id, enabled) values (?, ?, ?)");
+            stmt = conn.prepareStatement("insert into likes (user_id, answer_id) values (?, ?)");
             stmt.setInt(1, userId);
             stmt.setInt(2, answerId);
-            stmt.setBoolean(3, true);
             stmt.execute();
             return true;
         } catch (SQLException ex) {
@@ -84,7 +80,7 @@ public class AnswerDao {
     }
 
     public void updateAnswerLikes(int answerId) throws DBException {
-        try (PreparedStatement stmt = conn.prepareStatement("update answers set likes = (select count(*) from likes where answer_id = ? and enabled = true) where id = ?");) {
+        try (PreparedStatement stmt = conn.prepareStatement("update answers set likes = (select count(*) from likes where answer_id = ?) where id = ?");) {
             stmt.setInt(1, answerId);
             stmt.setInt(2, answerId);
             stmt.execute();
@@ -125,7 +121,7 @@ public class AnswerDao {
     }
 
     public int getAnswerLikesCount(int id) throws DBException {
-        try (PreparedStatement stmt = conn.prepareStatement("select count(id) from likes where answer_id = ?")) {
+        try (PreparedStatement stmt = conn.prepareStatement("select count(*) from likes where answer_id = ?")) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {

@@ -12,7 +12,7 @@ select * from questions order by id desc;
 
 -- Selecting answers list
 -- FIXME
-select * from answers where is_best = true and question = 1 union select * from answers where question = 1 order by likes;
+select * from answers where question = 1 order by likes desc;
 
 -- selecting 1 like
 select * from likes where user_id = 1 and 2 = answer_id;
@@ -24,7 +24,7 @@ update likes set enabled = true where answer_id = 2 and user_id = 1;
 select count(*) from likes where answer_id = 1;
 
 -- set likes count
-update answers set likes = (select count(*) from likes where answer_id = ? and enabled = true) where id = ?
+update answers set likes = (select count(*) from likes where answer_id = ?) where id = ?;
 
 -- updating user rating
 update users set rating = rating + 10 where id = 1;
@@ -34,8 +34,15 @@ delete from likes where answer_id = ?;
 delete from answers where id = ?;
 
 -- get answer like count
-select count(id) from likes where answer_id = ?;
+select count(*) from likes where answer_id = ?;
 
+-- deleting quetion
 delete from likes where answer_id = ?;
 delete from answers where question = 1;
 delete from questions where id = 1;
+
+-- deleting like
+delete from likes where answer_id = ? and user_id = ?;
+
+-- add like
+insert into likes (user_id, answer_id) VALUES (?, ?);
