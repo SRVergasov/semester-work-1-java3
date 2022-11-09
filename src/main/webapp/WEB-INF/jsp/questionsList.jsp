@@ -11,10 +11,10 @@
     <div id="#form_add_question" style="display: none">
         <p>Write question</p>
         <form method="post" action="${pageContext.request.contextPath}/questions/add_question">
-            <input type="text" name="title">
-            <input type="text" name="description">
+            <input type="text" name="title" required placeholder="Question title">
+            <input type="text" name="description" placeholder="Question description">
                 <%--TODO js max len --%>
-            <input title="submit" type="submit">
+            <input title="submit" type="submit" class="btn btn-dark">
         </form>
     </div>
     <hr>

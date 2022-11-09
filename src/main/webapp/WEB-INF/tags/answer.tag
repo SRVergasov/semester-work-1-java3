@@ -5,10 +5,7 @@
 
 <c:if test="${answer.best}">
     <p>Best answer:</p>
-    <%-- TODO image --%>
 </c:if>
-<%--        TODO user avatar    <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">--%>
-<%--            TODO best answer--%>
 <c:if test="${userId eq answer.userId}">
     <a class="btn btn-danger" href="${pageContext.request.contextPath}/questions/answer_delete?answerId=${answer.id}">Delete</a>
 </c:if>

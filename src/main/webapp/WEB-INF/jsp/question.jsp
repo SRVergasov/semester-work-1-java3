@@ -8,12 +8,12 @@
 
     </layout:question>
 
-    <button id="#btn_add_answer" type="button" class="btn btn-secondary">Add answer</button>
+    <button id="#btn_add_answer" type="button" class="btn btn-dark">Add answer</button>
     <div id="#form_add_answer" style="display: none">
         <p>Write answer</p>
         <form method="post" action="${pageContext.request.contextPath}/questions/add_answer?questionId=${question.id}&userId=${userId}">
-            <input type="text" name="text">
-            <input title="submit" type="submit">
+            <input type="text" name="text" required placeholder="Answer text">
+            <input title="submit" type="submit" class="btn btn-dark">
         </form>
     </div>
     <hr>
