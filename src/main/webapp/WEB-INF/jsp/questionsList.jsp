@@ -17,12 +17,13 @@
             <input title="submit" type="submit">
         </form>
     </div>
+    <hr>
 
     <c:forEach items="${questionsList}" var="question">
-        <layout:question question="${question}">
+        <layout:question question="${question}" individual="${false}">
             
         </layout:question>
+        <hr>
     </c:forEach>
-
 
 </layout:mainLayout>

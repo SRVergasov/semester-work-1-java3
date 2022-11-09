@@ -1,4 +1,4 @@
-package ru.kpfu.itis.java3.semesterwork1.servlets;
+package ru.kpfu.itis.java3.semesterwork1.servlets.helpers;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

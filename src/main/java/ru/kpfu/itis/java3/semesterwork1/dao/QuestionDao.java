@@ -59,4 +59,14 @@ public class QuestionDao {
             throw new DBException("Cannot get question by id", e);
         }
     }
+
+    public void deleteQuestion(int id) throws DBException {
+        try {
+            PreparedStatement stmt = conn.prepareStatement("delete from questions where id = ?");
+            stmt.setInt(1, id);
+            stmt.execute();
+        } catch (SQLException e) {
+            throw new DBException("Cannot delete question", e);
+        }
+    }
 }

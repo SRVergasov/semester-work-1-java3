@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <layout:mainLayout>
+
+    <h1>Registration page</h1>
+
     <div class="form-signin m-auto">
         <form action="${pageContext.request.contextPath}/registration" method="post">
             <div class="mb-3">

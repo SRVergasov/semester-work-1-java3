@@ -4,7 +4,7 @@
 
 <layout:mainLayout jsFiles="answerAddingViewScript.js">
 
-    <layout:question question="${question}">
+    <layout:question question="${question}" individual="${true}">
 
     </layout:question>
 
@@ -16,13 +16,12 @@
             <input title="submit" type="submit">
         </form>
     </div>
+    <hr>
 
     <c:forEach items="${answersList}" var="answer">
         <layout:answer answer="${answer}">
 
         </layout:answer>
     </c:forEach>
-
-
 
 </layout:mainLayout>
