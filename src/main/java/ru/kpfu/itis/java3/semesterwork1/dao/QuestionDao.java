@@ -61,12 +61,32 @@ public class QuestionDao {
     }
 
     public void deleteQuestion(int id) throws DBException {
-        try {
-            PreparedStatement stmt = conn.prepareStatement("delete from questions where id = ?");
+        try (PreparedStatement stmt = conn.prepareStatement("delete from questions where id = ?")) {
             stmt.setInt(1, id);
             stmt.execute();
         } catch (SQLException e) {
             throw new DBException("Cannot delete question", e);
+        }
+    }
+
+    public void updateQuestion(int id, String title, String description) throws DBException {
+        if (description.isEmpty()) {
+            try (PreparedStatement stmt = conn.prepareStatement("update questions set title = ? where id = ?")) {
+                stmt.setString(1, title);
+                stmt.setInt(2, id);
+                stmt.execute();
+            } catch (SQLException e) {
+                throw new DBException("Cannot update question");
+            }
+            return;
+        }
+        try (PreparedStatement stmt = conn.prepareStatement("update questions set title = ?, description = ? where id = ?")) {
+            stmt.setString(1, title);
+            stmt.setString(2, description);
+            stmt.setInt(3, id);
+            stmt.execute();
+        } catch (SQLException e) {
+            throw new DBException("Cannot update question");
         }
     }
 }

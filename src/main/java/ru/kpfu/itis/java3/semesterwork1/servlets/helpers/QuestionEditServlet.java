@@ -1,6 +1,7 @@
 package ru.kpfu.itis.java3.semesterwork1.servlets.helpers;
 
 import ru.kpfu.itis.java3.semesterwork1.dao.QuestionDao;
+import ru.kpfu.itis.java3.semesterwork1.entity.Question;
 import ru.kpfu.itis.java3.semesterwork1.exceptions.DBException;
 import ru.kpfu.itis.java3.semesterwork1.validators.QuestionInputValidator;
 
@@ -11,10 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/questions/add_question")
-public class QuestionAddServlet extends HttpServlet {
+@WebServlet("/questions/question_edit")
+public class QuestionEditServlet extends HttpServlet {
     private QuestionDao questionDao;
     private QuestionInputValidator inputValidator;
+
 
     @Override
     public void init() throws ServletException {
@@ -23,17 +25,31 @@ public class QuestionAddServlet extends HttpServlet {
     }
 
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("title", "Editing question");
+        try {
+             Question question = questionDao.getQuestionById(Integer.parseInt(req.getParameter("questionId")));
+             req.setAttribute("question", question);
+        } catch (DBException e) {
+            req.setAttribute("errorText", e.getMessage());
+            getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
+            return;
+        }
+        getServletContext().getRequestDispatcher("/WEB-INF/jsp/questionEdit.jsp").forward(req, resp);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String title = req.getParameter("title");
-        String description = req.getParameter("description");
-        int userId = (int) req.getSession().getAttribute("userId");
-        if (!inputValidator.validate(title, description)) {
+        int questionId = Integer.parseInt(req.getParameter("questionId"));
+        String newTitle = req.getParameter("title");
+        String newDescription = req.getParameter("description");
+        if (!inputValidator.validate(newTitle, newDescription)) {
             req.setAttribute("errorText", inputValidator.getMessage());
             getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
             return;
         }
         try {
-            questionDao.addQuestion(userId, title, description);
+            questionDao.updateQuestion(questionId, newTitle, newDescription);
             resp.sendRedirect(getServletContext().getContextPath() + "/questions");
         } catch (DBException e) {
             req.setAttribute("errorText", e.getMessage());

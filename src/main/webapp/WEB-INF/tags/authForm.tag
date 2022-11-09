@@ -14,12 +14,12 @@
                 <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
                 <div class="form-floating">
-                    <input name="username" type="text" class="form-control" id="floatingInput">
+                    <input name="username" required type="text" class="form-control" id="floatingInput">
                     <label for="floatingInput">Username</label>
                     <div class="form-text">First time here? <a href="${pageContext.request.contextPath}/registration">registration</a></div>
                 </div>
                 <div class="form-floating">
-                    <input name="password" type="password" class="form-control" id="floatingPassword">
+                    <input name="password" required type="password" class="form-control" id="floatingPassword">
                     <label for="floatingPassword">Password</label>
                 </div>
                 <button class="btn btn-lg btn-primary" type="submit">Sign in</button>

@@ -1,9 +1,9 @@
 package ru.kpfu.itis.java3.semesterwork1.validators;
 
-public class AddQuestionInputValidator {
+public class QuestionInputValidator {
     private String message;
 
-    public AddQuestionInputValidator() {
+    public QuestionInputValidator() {
         message = "";
     }
 
