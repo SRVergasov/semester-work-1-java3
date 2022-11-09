@@ -33,6 +33,7 @@
                 <c:if test="${role == \"admin\"}">
                     <li><a href="${pageContext.request.contextPath}/panel" class="nav-link px-2 text-white">Panel</a></li>
                 </c:if>
+                <li><a href="${pageContext.request.contextPath}/users" class="nav-link px-2 text-white">Top users</a></li>
             </ul>
             <div class="text-end px-2">
                 <p>

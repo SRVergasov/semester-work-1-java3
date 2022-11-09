@@ -23,7 +23,25 @@ public class UserDao {
     public List<User> getUsersList() throws DBException {
         ArrayList<User> list = new ArrayList<>();
         //TODO date
-        try (PreparedStatement stmt = conn.prepareStatement("SELECT * from users order by id")) {
+        try (PreparedStatement stmt = conn.prepareStatement("SELECT * from users")) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                list.add(new User(rs.getInt("id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getInt("rating"),
+                        rs.getString("role")));
+            }
+            return list;
+        } catch (SQLException e) {
+            throw new DBException("Cannot get users list", e);
+        }
+    }
+
+    public List<User> getSortedUsersList() throws DBException {
+        ArrayList<User> list = new ArrayList<>();
+        //TODO date
+        try (PreparedStatement stmt = conn.prepareStatement("SELECT * from users order by rating desc")) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 list.add(new User(rs.getInt("id"),
