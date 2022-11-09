@@ -35,3 +35,7 @@ delete from answers where id = ?;
 
 -- get answer like count
 select count(id) from likes where answer_id = ?;
+
+delete from likes where answer_id = ?;
+delete from answers where question = 1;
+delete from questions where id = 1;

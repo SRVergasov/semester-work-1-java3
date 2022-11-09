@@ -5,6 +5,9 @@
 <%@attribute name="individual" required="true" type="java.lang.Boolean" %>
 
 <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
+    <c:if test="${userId eq question.userId}">
+        <a class="btn btn-danger" href="${pageContext.request.contextPath}/questions/question_delete?questionId=${question.id}">Delete</a>
+    </c:if>
     <div class="col-md-6 px-0">
         <h1 class="display-4 fst-italic">${question.title}</h1>
         <p class="lead my-3">${question.description}</p>

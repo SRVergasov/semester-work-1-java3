@@ -106,6 +106,7 @@ public class AnswerDao {
         }
     }
 
+    //TODO outer delete likes method
     public void deleteAnswer(int id) throws DBException {
         try {
             PreparedStatement stmt = conn.prepareStatement("delete from likes where answer_id = ?;");
