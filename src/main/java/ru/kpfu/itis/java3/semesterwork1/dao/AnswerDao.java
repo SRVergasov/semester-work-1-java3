@@ -131,4 +131,14 @@ public class AnswerDao {
             throw new DBException("Cannot get likes from answer", e);
         }
     }
+
+    public void updateAnswer(int id, String newText) throws DBException {
+        try (PreparedStatement stmt = conn.prepareStatement("update answers set text = ? where id = ?")) {
+            stmt.setString(1, newText);
+            stmt.setInt(2, id);
+            stmt.execute();
+        } catch (SQLException e) {
+            throw new DBException("Cannot update answer", e);
+        }
+    }
 }

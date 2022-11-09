@@ -1,4 +1,4 @@
-package ru.kpfu.itis.java3.semesterwork1.servlets;
+package ru.kpfu.itis.java3.semesterwork1.servlets.helpers;
 
 import ru.kpfu.itis.java3.semesterwork1.dao.AnswerDao;
 import ru.kpfu.itis.java3.semesterwork1.dao.UserDao;

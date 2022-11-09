@@ -1,4 +1,4 @@
-package ru.kpfu.itis.java3.semesterwork1.servlets;
+package ru.kpfu.itis.java3.semesterwork1.servlets.helpers;
 
 import ru.kpfu.itis.java3.semesterwork1.dao.QuestionDao;
 import ru.kpfu.itis.java3.semesterwork1.exceptions.DBException;

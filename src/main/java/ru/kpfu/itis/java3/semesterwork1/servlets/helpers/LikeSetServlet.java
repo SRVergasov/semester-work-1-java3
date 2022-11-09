@@ -1,4 +1,4 @@
-package ru.kpfu.itis.java3.semesterwork1.servlets;
+package ru.kpfu.itis.java3.semesterwork1.servlets.helpers;
 
 import ru.kpfu.itis.java3.semesterwork1.dao.AnswerDao;
 import ru.kpfu.itis.java3.semesterwork1.dao.UserDao;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/questions/add_like")
-public class LikeAddServlet extends HttpServlet {
+public class LikeSetServlet extends HttpServlet {
     private AnswerDao answerDao;
     private UserDao userDao;
 
