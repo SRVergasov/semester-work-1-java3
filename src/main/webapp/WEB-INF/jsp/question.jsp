@@ -16,6 +16,7 @@
             <input title="submit" type="submit">
         </form>
     </div>
+    <hr>
 
     <c:forEach items="${answersList}" var="answer">
         <layout:answer answer="${answer}">

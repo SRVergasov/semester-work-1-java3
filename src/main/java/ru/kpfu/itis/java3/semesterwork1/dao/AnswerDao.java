@@ -105,4 +105,17 @@ public class AnswerDao {
             throw new DBException("Cannot get answer", ex);
         }
     }
+
+    public void deleteAnswer(int id) throws DBException {
+        try {
+            PreparedStatement stmt = conn.prepareStatement("delete from likes where answer_id = ?;");
+            stmt.setInt(1, id);
+            stmt.execute();
+            stmt = conn.prepareStatement("delete from answers where id = ?");
+            stmt.setInt(1, id);
+            stmt.execute();
+        } catch (SQLException e) {
+            throw new DBException("Cannot delete answer", e);
+        }
+    }
 }
