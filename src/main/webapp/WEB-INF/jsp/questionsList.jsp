@@ -5,7 +5,6 @@
 <layout:mainLayout jsFiles="questionAddingViewScript.js">
 
     <h1>Welcome to the questions list page!</h1>
-    <h4>Here all questions:</h4>
 
     <button id="#btn_add_question" type="button" class="btn btn-secondary">Add question</button>
     <div id="#form_add_question" style="display: none">
@@ -17,6 +16,8 @@
             <input title="submit" type="submit" class="btn btn-dark">
         </form>
     </div>
+
+    <h4>Here all questions:</h4>
     <hr>
 
     <c:forEach items="${questionsList}" var="question">
