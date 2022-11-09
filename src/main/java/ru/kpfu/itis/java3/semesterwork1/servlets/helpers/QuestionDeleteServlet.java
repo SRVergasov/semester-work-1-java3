@@ -32,6 +32,7 @@ public class QuestionDeleteServlet extends HttpServlet {
         try {
             for (Answer answer : answerDao.getAnswersList(questionId)) {
                 int likesCount = answerDao.getAnswerLikesCount(answer.getId());
+                answerDao.deleteLikes(answer.getId());
                 answerDao.deleteAnswer(answer.getId());
                 userDao.updateRating(answer.getUserId(), -likesCount);
             }

@@ -106,13 +106,17 @@ public class AnswerDao {
         }
     }
 
-    //TODO outer delete likes method
-    public void deleteAnswer(int id) throws DBException {
-        try {
-            PreparedStatement stmt = conn.prepareStatement("delete from likes where answer_id = ?;");
-            stmt.setInt(1, id);
+    public void deleteLikes(int answerId) throws DBException {
+        try (PreparedStatement stmt = conn.prepareStatement("delete from likes where answer_id = ?;")) {
+            stmt.setInt(1, answerId);
             stmt.execute();
-            stmt = conn.prepareStatement("delete from answers where id = ?");
+        } catch (SQLException e) {
+            throw new DBException("Cannot delete answer likes", e);
+        }
+    }
+
+    public void deleteAnswer(int id) throws DBException {
+        try (PreparedStatement stmt = conn.prepareStatement("delete from answers where id = ?");) {
             stmt.setInt(1, id);
             stmt.execute();
         } catch (SQLException e) {
