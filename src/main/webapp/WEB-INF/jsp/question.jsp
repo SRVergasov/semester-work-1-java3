@@ -4,7 +4,7 @@
 
 <layout:mainLayout jsFiles="answerAddingViewScript.js">
 
-    <layout:question question="${question}">
+    <layout:question question="${question}" individual="${true}">
 
     </layout:question>
 
@@ -23,7 +23,5 @@
 
         </layout:answer>
     </c:forEach>
-
-
 
 </layout:mainLayout>
