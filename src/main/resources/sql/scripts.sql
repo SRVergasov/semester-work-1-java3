@@ -46,3 +46,5 @@ delete from likes where answer_id = ? and user_id = ?;
 
 -- add like
 insert into likes (user_id, answer_id) VALUES (?, ?);
+
+update questions set title = ?, description = ? where id = ?;

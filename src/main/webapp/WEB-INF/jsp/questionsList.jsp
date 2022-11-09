@@ -20,7 +20,7 @@
     <hr>
 
     <c:forEach items="${questionsList}" var="question">
-        <layout:question question="${question}" individual="${false}">
+        <layout:question question="${question}" individual="${false}" editing="${false}">
             
         </layout:question>
         <hr>

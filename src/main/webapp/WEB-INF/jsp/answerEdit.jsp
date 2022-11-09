@@ -4,7 +4,7 @@
 
 <layout:mainLayout>
 
-    <layout:answer answer="${answer}">
+    <layout:answer answer="${answer}" editing="${true}">
         <form method="post">
             <input type="text" name="newText" placeholder="new text" required>
             <input type="submit" class="btn">
