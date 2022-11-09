@@ -30,5 +30,8 @@ update answers set likes = (select count(*) from likes where answer_id = ? and e
 update users set rating = rating + 10 where id = 1;
 
 -- deleting answer
-delete from likes where answer_id = 14;
-delete from answers where id = 14;
+delete from likes where answer_id = ?;
+delete from answers where id = ?;
+
+-- get answer like count
+select count(id) from likes where answer_id = ?;

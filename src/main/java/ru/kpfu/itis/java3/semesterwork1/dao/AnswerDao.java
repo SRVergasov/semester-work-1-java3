@@ -118,4 +118,17 @@ public class AnswerDao {
             throw new DBException("Cannot delete answer", e);
         }
     }
+
+    public int getAnswerLikesCount(int id) throws DBException {
+        try (PreparedStatement stmt = conn.prepareStatement("select count(id) from likes where answer_id = ?")) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("count");
+            }
+            throw new DBException("Cannot get likes from answer");
+        } catch (SQLException e) {
+            throw new DBException("Cannot get likes from answer", e);
+        }
+    }
 }
