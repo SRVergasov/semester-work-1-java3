@@ -6,6 +6,7 @@
 <%@attribute name="jsFiles"%>
 
 <head>
+    <meta charset="UTF-8">
     <title>${title}</title>
     <link rel="stylesheet" href="<c:url value="/static/css/styles.css"/>">
     <link rel="stylesheet" href="<c:url value="/static/css/bootstrap.min.css"/>">

@@ -25,7 +25,6 @@ public class AuthServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // TODO encapsulate
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         if(!inputValidator.validate(username, password)) {
