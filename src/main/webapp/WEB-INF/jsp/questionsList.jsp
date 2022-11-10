@@ -1,4 +1,4 @@
-<%@ page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="layout" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -20,8 +20,8 @@
     <h4>Here all questions:</h4>
     <hr>
 
-    <c:forEach items="${questionsList}" var="question">
-        <layout:question question="${question}" individual="${false}" editing="${false}">
+    <c:forEach items="${questionsList}" var="question" varStatus="loop">
+        <layout:question question="${question}" individual="${false}" editing="${false}" username="${usernames[loop.index]}">
             
         </layout:question>
         <hr>

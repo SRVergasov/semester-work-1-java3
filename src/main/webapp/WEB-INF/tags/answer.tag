@@ -3,6 +3,7 @@
 
 <%@attribute name="answer" required="true" type="ru.kpfu.itis.java3.semesterwork1.entity.Answer" %>
 <%@attribute name="editing" required="true" type="java.lang.Boolean" %>
+<%@attribute name="username" type="java.lang.String" required="false" %>
 
 <c:if test="${answer.best}">
     <p>Best answer:</p>
@@ -18,7 +19,9 @@
     </c:if>
 </c:if>
 <h2 class="blog-post-title">${answer.text}</h2>
-<p class="blog-post-meta">User: ${answer.userId}</p>
+<c:if test="${not empty username}">
+    <p class="blog-post-meta">Author: ${username}</p>
+</c:if>
 <small class="opacity-50 text-nowrap">Likes: ${answer.likes}</small>
 <c:if test="${!editing}">
     <a href="${pageContext.request.contextPath}/questions/add_like?answerId=${answer.id}&questionId=${answer.question}" class="btn" style="color: #ff2400">Like</a>

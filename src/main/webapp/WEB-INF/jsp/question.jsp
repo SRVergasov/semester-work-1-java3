@@ -1,10 +1,10 @@
-<%@ page pageEncoding="UTF-8" contentType="text/html" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="layout" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <layout:mainLayout jsFiles="answerAddingViewScript.js">
 
-    <layout:question question="${question}" individual="${true}" editing="${false}">
+    <layout:question question="${question}" individual="${true}" editing="${false}" username="${questionUsername}">
 
     </layout:question>
 
@@ -18,8 +18,8 @@
     </div>
     <hr>
 
-    <c:forEach items="${answersList}" var="answer">
-        <layout:answer answer="${answer}" editing="${false}">
+    <c:forEach items="${answersList}" var="answer" varStatus="loop">
+        <layout:answer answer="${answer}" editing="${false}" username="${usernames[loop.index]}">
 
         </layout:answer>
     </c:forEach>
