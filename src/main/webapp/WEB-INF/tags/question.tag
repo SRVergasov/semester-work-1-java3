@@ -22,7 +22,7 @@
         <c:if test="${not individual}">
             <p class="lead mb-0"><a href="${pageContext.request.contextPath}/questions/question?id=${question.id}" class="text-white fw-bold">Open</a></p>
         </c:if>
-        <c:if test="${individual and userId eq question.userId}">
+        <c:if test="${individual and !editing and userId eq question.userId}">
             <a class="btn btn-light" href="${pageContext.request.contextPath}/questions/choose_best?questionId=${question.id}">Choose best answer</a>
         </c:if>
 
