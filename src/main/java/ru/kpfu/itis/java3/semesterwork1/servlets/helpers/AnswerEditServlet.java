@@ -28,7 +28,7 @@ public class AnswerEditServlet extends HttpServlet {
         try {
             req.setAttribute("answer", answerDao.getAnswerById(Integer.parseInt(req.getParameter("answerId"))));
         } catch (DBException e) {
-            req.setAttribute("errorText", e.getMessage());
+            req.setAttribute("errorText", "Something wrong with DB");
             getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
             return;
         }
@@ -49,7 +49,7 @@ public class AnswerEditServlet extends HttpServlet {
             answerDao.updateAnswer(answerId, text);
             resp.sendRedirect(getServletContext().getContextPath() + "/questions/question?id=" + questionId);
         } catch (DBException e) {
-            req.setAttribute("errorText", e.getMessage());
+            req.setAttribute("errorText", "Something wrong with DB");
             getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
         }
     }

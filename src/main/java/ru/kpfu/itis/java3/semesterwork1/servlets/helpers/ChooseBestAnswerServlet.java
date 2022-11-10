@@ -57,7 +57,7 @@ public class ChooseBestAnswerServlet extends HttpServlet {
             userDao.updateRating(newBestAnswer.getUserId(), +UserDao.BEST_ANSWER_MARKED_COST);
             resp.sendRedirect(getServletContext().getContextPath() + "/questions/question?id=" + questionId);
         } catch (DBException e) {
-            req.setAttribute("errorText", e.getMessage());
+            req.setAttribute("errorText", "Something wrong with DB");
             getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
         }
     }

@@ -25,7 +25,7 @@ public class UsersListServlet extends HttpServlet {
             req.setAttribute("usersList", userDao.getSortedUsersList());
             getServletContext().getRequestDispatcher("/WEB-INF/jsp/usersList.jsp").forward(req, resp);
         } catch (DBException e) {
-            req.setAttribute("errorText", e.getMessage());
+            req.setAttribute("errorText", "Something wrong with DB");
             getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
         }
     }

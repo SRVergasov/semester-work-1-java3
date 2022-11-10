@@ -25,7 +25,7 @@ public class AdminPanelServlet extends HttpServlet {
         try {
             req.setAttribute("userList", userDao.getUsersList());
         } catch (DBException e) {
-            req.setAttribute("errorText", e.getMessage());
+            req.setAttribute("errorText", "Something wrong with DB");
             getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
             return;
         }

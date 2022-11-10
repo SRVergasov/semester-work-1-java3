@@ -29,7 +29,7 @@ public class AdminPanelEditServlet extends HttpServlet {
         try {
             user = userDao.getUserById(Integer.parseInt(req.getParameter("id")));
         } catch (DBException e) {
-            req.setAttribute("errorText", e.getMessage());
+            req.setAttribute("errorText", "Something wrong with DB");
             getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
             return;
         }
@@ -46,12 +46,11 @@ public class AdminPanelEditServlet extends HttpServlet {
                 userDao.setRating(Integer.parseInt(req.getParameter("id")), Integer.parseInt(newRating));
                 resp.sendRedirect(getServletContext().getContextPath() + "/panel");
             } else {
-                String errorText = validator.getMessage();
-                req.setAttribute("errorText", errorText);
+                req.setAttribute("errorText", validator.getMessage());
                 getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
             }
         } catch (DBException e) {
-            req.setAttribute("errorText", e.getMessage());
+            req.setAttribute("errorText", "Something wrong with DB");
             getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
         }
     }

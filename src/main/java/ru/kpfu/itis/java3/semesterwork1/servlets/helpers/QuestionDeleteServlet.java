@@ -42,7 +42,7 @@ public class QuestionDeleteServlet extends HttpServlet {
             questionDao.deleteQuestion(questionId);
             resp.sendRedirect(getServletContext().getContextPath() + "/questions");
         } catch (DBException e) {
-            req.setAttribute("errorText", e.getMessage());
+            req.setAttribute("errorText", "Something wrong with DB");
             getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
         }
     }

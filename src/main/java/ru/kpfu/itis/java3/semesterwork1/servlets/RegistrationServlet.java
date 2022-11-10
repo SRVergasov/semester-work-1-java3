@@ -31,7 +31,6 @@ public class RegistrationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //TODO encapsulate
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         if (!registrationInputValidator.validate(username, password)) {
@@ -52,7 +51,7 @@ public class RegistrationServlet extends HttpServlet {
             req.getSession().setAttribute("role", user.getRole());
             resp.sendRedirect(getServletContext().getContextPath() +  "/profile");
         } catch (DBException e) {
-            req.setAttribute("errorText", e.getMessage());
+            req.setAttribute("errorText", "Something wrong with DB");
             getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
         }
     }

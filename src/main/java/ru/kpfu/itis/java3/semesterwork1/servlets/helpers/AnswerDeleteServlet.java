@@ -37,7 +37,7 @@ public class AnswerDeleteServlet extends HttpServlet {
             userDao.updateRating(answer.getUserId(), -(likesCount * UserDao.LIKE_COST));
             resp.sendRedirect(getServletContext().getContextPath() + "/questions/question?id=" + answer.getQuestion());
         } catch (DBException e) {
-            req.setAttribute("errorText", e.getMessage());
+            req.setAttribute("errorText", "Something wrong with DB");
             getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
         }
     }

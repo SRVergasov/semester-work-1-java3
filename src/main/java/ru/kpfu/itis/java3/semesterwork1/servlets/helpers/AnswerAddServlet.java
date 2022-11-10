@@ -32,7 +32,7 @@ public class AnswerAddServlet extends HttpServlet {
         try {
             answerDao.addAnswer(questionId, userId, text);
         } catch (DBException e) {
-            req.setAttribute("errorText", e.getMessage());
+            req.setAttribute("errorText", "Something wrong with DB");
             getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
             return;
         }

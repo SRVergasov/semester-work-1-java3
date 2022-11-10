@@ -30,7 +30,7 @@ public class ProfileServlet extends HttpServlet {
             req.setAttribute("name", user.getUsername());
             getServletContext().getRequestDispatcher("/WEB-INF/jsp/profile.jsp").forward(req, resp);
         } catch (DBException e) {
-            req.setAttribute("errorText", e.getMessage());
+            req.setAttribute("errorText", "Something wrong with DB");
             getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
         }
     }

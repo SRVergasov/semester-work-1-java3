@@ -49,7 +49,7 @@ public class AuthServlet extends HttpServlet {
             req.getSession().setAttribute("role", user.getRole());
             resp.sendRedirect(getServletContext().getContextPath() +  "/profile");
         } catch (DBException e) {
-            req.setAttribute("errorText", e.getMessage());
+            req.setAttribute("errorText", "Something wrong with DB");
             getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
         }
     }
