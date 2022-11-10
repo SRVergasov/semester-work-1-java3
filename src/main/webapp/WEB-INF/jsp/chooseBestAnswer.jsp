@@ -1,0 +1,25 @@
+<%@ page contentType="text/html" pageEncoding="UTF-8" language="java" %>
+
+<%@taglib prefix="layout" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<layout:mainLayout>
+
+    <form class="form-switch" method="post">
+
+        <c:forEach items="${answersList}" var="answer">
+            <layout:answer answer="${answer}" editing="${true}">
+                <c:if test="${!answer.best}">
+                    <br>
+                    <span>
+                        Choose this answer:
+                        <input type="radio" value="${answer.id}" name="bestAnswer">
+                    </span>
+                </c:if>
+            </layout:answer>
+        </c:forEach>
+        <input type="submit" title="choose" class="btn btn-dark">
+
+    </form>
+
+</layout:mainLayout>

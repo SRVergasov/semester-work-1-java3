@@ -94,7 +94,7 @@ public class AnswerDao {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return new Answer(rs.getInt("id"), rs.getString("text"), rs.getInt("question"), rs.getInt("user_id"));
+                return new Answer(rs.getInt("id"), rs.getString("text"), rs.getInt("question"), rs.getInt("user_id"), rs.getInt("likes"), rs.getBoolean("is_best"));
             }
             throw new DBException("Answer not find");
         } catch (SQLException ex) {
@@ -140,6 +140,48 @@ public class AnswerDao {
             stmt.execute();
         } catch (SQLException e) {
             throw new DBException("Cannot update answer", e);
+        }
+    }
+
+    public Answer getBestAnswer(int questionId) throws DBException {
+        try (PreparedStatement stmt = conn.prepareStatement("select * from answers where question = ? and is_best = true")) {
+            stmt.setInt(1, questionId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new Answer(rs.getInt("id"), rs.getString("text"), rs.getInt("question"), rs.getInt("user_id"), rs.getInt("likes"), rs.getBoolean("is_best"));
+            }
+            throw new DBException("Cannot get best answer");
+        } catch (SQLException e) {
+            throw new DBException("Cannot get best answer", e);
+        }
+    }
+
+    public void setBestAnswer(int answerId) throws DBException {
+        try (PreparedStatement stmt = conn.prepareStatement("update answers set is_best = true where id = ?")) {
+            stmt.setInt(1, answerId);
+            stmt.execute();
+        } catch (SQLException e) {
+            throw new DBException("Cannot set best answer", e);
+        }
+    }
+
+    public boolean haveBestAnswer(int questionId) throws DBException {
+        try (PreparedStatement stmt = conn.prepareStatement("select * from answers where question = ? and is_best = true")) {
+            stmt.setInt(1, questionId);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            throw new DBException("Cannot get best answer", e);
+        }
+    }
+
+    public boolean unmarkBestAnswer(int questionId) throws DBException {
+        try (PreparedStatement stmt = conn.prepareStatement("update answers set is_best = false where is_best = true and question = ?")) {
+            stmt.setInt(1, questionId);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            throw new DBException("Cannot get best answer", e);
         }
     }
 }

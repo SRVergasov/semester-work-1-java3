@@ -31,7 +31,10 @@ public class AnswerDeleteServlet extends HttpServlet {
             int likesCount = answerDao.getAnswerLikesCount(answerId);
             answerDao.deleteLikes(answerId);
             answerDao.deleteAnswer(answerId);
-            userDao.updateRating(answer.getUserId(), -likesCount);
+            if (answer.isBest()) {
+                userDao.updateRating(answer.getUserId(), -UserDao.BEST_ANSWER_MARKED_COST);
+            }
+            userDao.updateRating(answer.getUserId(), -(likesCount * UserDao.LIKE_COST));
             resp.sendRedirect(getServletContext().getContextPath() + "/questions/question?id=" + answer.getQuestion());
         } catch (DBException e) {
             req.setAttribute("errorText", e.getMessage());

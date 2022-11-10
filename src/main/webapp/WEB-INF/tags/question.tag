@@ -9,8 +9,6 @@
     <c:if test="${!editing}">
         <c:if test="${userId eq question.userId}">
             <a class="btn btn-danger" href="${pageContext.request.contextPath}/questions/question_delete?questionId=${question.id}">Delete</a>
-        </c:if>
-        <c:if test="${userId eq question.userId}">
             <a class="btn btn-warning" href="${pageContext.request.contextPath}/questions/question_edit?questionId=${question.id}">Edit</a>
         </c:if>
     </c:if>
@@ -19,6 +17,9 @@
         <p class="lead my-3">${question.description}</p>
         <c:if test="${not individual}">
             <p class="lead mb-0"><a href="${pageContext.request.contextPath}/questions/question?id=${question.id}" class="text-white fw-bold">Open</a></p>
+        </c:if>
+        <c:if test="${individual}">
+            <a class="btn btn-light" href="${pageContext.request.contextPath}/questions/choose_best?questionId=${question.id}">Choose best answer</a>
         </c:if>
 
     </div>

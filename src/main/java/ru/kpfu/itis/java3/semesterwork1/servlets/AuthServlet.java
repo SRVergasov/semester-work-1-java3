@@ -39,7 +39,7 @@ public class AuthServlet extends HttpServlet {
                 getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
                 return;
             }
-            if (!userDao.authUser(username, password)) {
+            if (!userDao.checkAuth(username, password)) {
                 req.setAttribute("errorText", "incorrect password");
                 getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
                 return;

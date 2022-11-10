@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao {
+    public static int LIKE_COST = 1;
+    public static int BEST_ANSWER_MARKED_COST = 10;
     private Connection conn;
     private PasswordHashGenerator hashProcessor;
 
@@ -22,7 +24,6 @@ public class UserDao {
 
     public List<User> getUsersList() throws DBException {
         ArrayList<User> list = new ArrayList<>();
-        //TODO date
         try (PreparedStatement stmt = conn.prepareStatement("SELECT * from users")) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -40,7 +41,6 @@ public class UserDao {
 
     public List<User> getSortedUsersList() throws DBException {
         ArrayList<User> list = new ArrayList<>();
-        //TODO date
         try (PreparedStatement stmt = conn.prepareStatement("SELECT * from users order by rating desc")) {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -120,24 +120,25 @@ public class UserDao {
         }
     }
 
-    //TODO change logic
     public boolean containsUser(String username) throws DBException {
-        for (User u : getUsersList()) {
-            if (u.getUsername().equals(username)) {
-                return true;
-            }
+        try (PreparedStatement stmt = conn.prepareStatement("select * from users where username = ?")) {
+            stmt.setString(1, username);
+            return stmt.executeQuery().next();
+        } catch (SQLException ex) {
+            throw new DBException("Cannot check user exist", ex);
         }
-        return false;
     }
 
-    public boolean authUser(String username, String password) throws DBException {
-        List<User> userList = getUsersList();
-        for (User u : userList) {
-            if (u.getUsername().equals(username) &&
-                    u.getPassword().equals(hashProcessor.generateHashedPassword(password))) {
-                return true;
+    public boolean checkAuth(String username, String password) throws DBException {
+        try (PreparedStatement stmt = conn.prepareStatement("select * from users where username = ?")) {
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return (rs.getString("password").equals(hashProcessor.generateHashedPassword(password)));
             }
+            throw new DBException("Cannot check user password");
+        } catch (SQLException ex) {
+            throw new DBException("Cannot check user password", ex);
         }
-        return false;
     }
 }

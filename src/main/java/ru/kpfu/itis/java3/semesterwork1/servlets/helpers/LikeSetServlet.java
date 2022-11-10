@@ -31,9 +31,9 @@ public class LikeSetServlet extends HttpServlet {
         try {
             int authorId = answerDao.getAnswerById(answerId).getUserId();
             if (answerDao.like(userId, answerId)) {
-                userDao.updateRating(authorId, 1);
+                userDao.updateRating(authorId, UserDao.LIKE_COST);
             } else {
-                userDao.updateRating(authorId, -1);
+                userDao.updateRating(authorId, -UserDao.LIKE_COST);
             }
             resp.sendRedirect(getServletContext().getContextPath() + "/questions/question?id=" + questionId);
         } catch (DBException e) {
