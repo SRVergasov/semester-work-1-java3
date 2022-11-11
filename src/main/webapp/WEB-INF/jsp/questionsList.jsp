@@ -2,7 +2,7 @@
 <%@taglib prefix="layout" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<layout:mainLayout jsFiles="questionAddingViewScript.js">
+<layout:mainLayout jsFiles="questionAddingViewScript.js,titleInputWatcher.js">
 
     <h1>Welcome to the questions list page!</h1>
 
