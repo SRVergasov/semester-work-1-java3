@@ -17,11 +17,13 @@ import java.io.IOException;
 public class ChooseBestAnswerServlet extends HttpServlet {
     private AnswerDao answerDao;
     private UserDao userDao;
+    private QuestionDao questionDao;
 
     @Override
     public void init() throws ServletException {
         answerDao = (AnswerDao) getServletContext().getAttribute("answerDao");
         userDao = (UserDao) getServletContext().getAttribute("userDao");
+        questionDao = (QuestionDao) getServletContext().getAttribute("questionDao");
     }
 
     @Override
@@ -29,6 +31,11 @@ public class ChooseBestAnswerServlet extends HttpServlet {
         req.setAttribute("title", "choosing best answer");
         try {
             int questionId = Integer.parseInt(req.getParameter("questionId"));
+            if (questionDao.getQuestionById(questionId).getUserId() != (int) req.getSession().getAttribute("userId")) {
+                req.setAttribute("errorText", "You cannot operate with not your questions");
+                getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
+                return;
+            }
             req.setAttribute("answersList", answerDao.getAnswersList(questionId));
             getServletContext().getRequestDispatcher("/WEB-INF/jsp/chooseBestAnswer.jsp").forward(req, resp);
         } catch (DBException e) {

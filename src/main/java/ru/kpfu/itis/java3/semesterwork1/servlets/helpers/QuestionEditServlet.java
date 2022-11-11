@@ -43,12 +43,17 @@ public class QuestionEditServlet extends HttpServlet {
         int questionId = Integer.parseInt(req.getParameter("questionId"));
         String newTitle = req.getParameter("title");
         String newDescription = req.getParameter("description");
-        if (!inputValidator.validate(newTitle, newDescription)) {
-            req.setAttribute("errorText", inputValidator.getMessage());
-            getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
-            return;
-        }
         try {
+            if (questionDao.getQuestionById(questionId).getUserId() != (int) req.getSession().getAttribute("userId")) {
+                req.setAttribute("errorText", "You cannot operate with not your questions");
+                getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
+                return;
+            }
+            if (!inputValidator.validate(newTitle, newDescription)) {
+                req.setAttribute("errorText", inputValidator.getMessage());
+                getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
+                return;
+            }
             questionDao.updateQuestion(questionId, newTitle, newDescription);
             resp.sendRedirect(getServletContext().getContextPath() + "/questions");
         } catch (DBException e) {

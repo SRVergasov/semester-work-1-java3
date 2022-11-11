@@ -30,6 +30,11 @@ public class QuestionDeleteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int questionId = Integer.parseInt(req.getParameter("questionId"));
         try {
+            if (questionDao.getQuestionById(questionId).getUserId() != (int) req.getSession().getAttribute("userId")) {
+                req.setAttribute("errorText", "You cannot operate with not your questions");
+                getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
+                return;
+            }
             for (Answer answer : answerDao.getAnswersList(questionId)) {
                 int likesCount = answerDao.getAnswerLikesCount(answer.getId());
                 answerDao.deleteLikes(answer.getId());

@@ -28,6 +28,11 @@ public class AnswerDeleteServlet extends HttpServlet {
         int answerId = Integer.parseInt(req.getParameter("answerId"));
         try {
             Answer answer = answerDao.getAnswerById(answerId);
+            if (answer.getUserId() != (int) req.getSession().getAttribute("userId")) {
+                req.setAttribute("errorText", "You cannot operate with not your answers");
+                getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
+                return;
+            }
             int likesCount = answerDao.getAnswerLikesCount(answerId);
             answerDao.deleteLikes(answerId);
             answerDao.deleteAnswer(answerId);

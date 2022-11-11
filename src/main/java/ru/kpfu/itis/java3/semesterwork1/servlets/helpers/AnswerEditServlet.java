@@ -1,6 +1,7 @@
 package ru.kpfu.itis.java3.semesterwork1.servlets.helpers;
 
 import ru.kpfu.itis.java3.semesterwork1.dao.AnswerDao;
+import ru.kpfu.itis.java3.semesterwork1.entity.Answer;
 import ru.kpfu.itis.java3.semesterwork1.exceptions.DBException;
 import ru.kpfu.itis.java3.semesterwork1.validators.AnswerInputValidator;
 
@@ -39,12 +40,18 @@ public class AnswerEditServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int answerId = Integer.parseInt(req.getParameter("answerId"));
         String text = req.getParameter("newText");
-        if (!inputValidator.validate(text)) {
-            req.setAttribute("errorText", inputValidator.getMessage());
-            getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
-            return;
-        }
         try {
+            Answer answer = answerDao.getAnswerById(answerId);
+            if (answer.getUserId() != (int) req.getSession().getAttribute("userId")) {
+                req.setAttribute("errorText", "You cannot operate with not your answers");
+                getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
+                return;
+            }
+            if (!inputValidator.validate(text)) {
+                req.setAttribute("errorText", inputValidator.getMessage());
+                getServletContext().getRequestDispatcher("/WEB-INF/jsp/errorPage.jsp").forward(req, resp);
+                return;
+            }
             int questionId = answerDao.getAnswerById(answerId).getQuestion();
             answerDao.updateAnswer(answerId, text);
             resp.sendRedirect(getServletContext().getContextPath() + "/questions/question?id=" + questionId);
