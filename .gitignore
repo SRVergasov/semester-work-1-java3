@@ -1,5 +1,6 @@
 *.class
 
+*.war
 *.iml
 *.idea
 *.github

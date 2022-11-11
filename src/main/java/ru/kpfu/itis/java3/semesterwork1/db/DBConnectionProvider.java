@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-//TODO change methods
 public class DBConnectionProvider {
     private static Connection INSTANCE = null;
 

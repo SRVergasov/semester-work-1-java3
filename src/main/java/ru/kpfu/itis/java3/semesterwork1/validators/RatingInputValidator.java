@@ -23,7 +23,6 @@ public class RatingInputValidator {
         return message;
     }
 
-//    TODO может и не изобретать велопсипед
     private boolean isDigit(String str) {
         try {
             Integer.parseInt(str);
