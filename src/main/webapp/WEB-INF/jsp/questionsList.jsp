@@ -11,7 +11,7 @@
         <p>Write question</p>
         <form method="post" action="${pageContext.request.contextPath}/questions/add_question">
             <input type="text" class="w-25 mx-auto form-control" name="title" required placeholder="Question title">
-            <p class="text-dark border-1 border-white">0/20</p>
+            <p id="#titleForInputWatcher" class="text-white bg-dark border-1 rounded-2 w-25 mx-auto border-white">0/20</p>
             <input type="text" class="w-25 mx-auto form-control" name="description" placeholder="Question description">
             <input title="submit" type="submit" class="m-2 btn btn-light border-dark border-1">
         </form>

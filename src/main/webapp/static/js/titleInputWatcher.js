@@ -1,5 +1,5 @@
 let title = document.getElementsByClassName("w-25 mx-auto form-control")[0];
-let log = document.getElementsByClassName("text-dark border-1 border-white")[0];
+let logParagraph = document.getElementById("#titleForInputWatcher");
 title.addEventListener('input', function (e) {
-    log.innerText = title.value.length + "/20";
+    logParagraph.innerText = title.value.length + "/20";
 });
