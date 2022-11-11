@@ -12,7 +12,9 @@ select * from questions order by id desc;
 
 -- Selecting answers list
 -- FIXME
-select * from answers where question = 1 order by likes desc;
+select * from answers where is_best = true
+union all
+(select * from answers where question = ? except select * from answers where is_best = true order by likes desc);
 
 -- selecting 1 like
 select * from likes where user_id = 1 and 2 = answer_id;
@@ -46,11 +48,3 @@ delete from likes where answer_id = ? and user_id = ?;
 
 -- add like
 insert into likes (user_id, answer_id) VALUES (?, ?);
-
-update questions set title = ?, description = ? where id = ?;
-
-update answers set is_best = false where is_best = true and question = ?;
-
-update answers set is_best = true where id = 39;
-
-select * from answers where question = 17 and is_best = true;

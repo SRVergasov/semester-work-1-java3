@@ -30,7 +30,7 @@ public class AnswerDao {
 
     public List<Answer> getAnswersList(int questionId) throws DBException {
         ArrayList<Answer> list = new ArrayList<>();
-        try (PreparedStatement stmt = conn.prepareStatement("select * from answers where question = ? order by likes desc")) {
+        try (PreparedStatement stmt = conn.prepareStatement("select * from answers where is_best = true union all (select * from answers where question = ? except select * from answers where is_best = true order by likes desc)")) {
             stmt.setInt(1, questionId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
