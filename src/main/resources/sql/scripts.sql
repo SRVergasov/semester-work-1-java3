@@ -11,7 +11,6 @@ select * from answers where question = 1 order by is_best desc;
 select * from questions order by id desc;
 
 -- Selecting answers list
--- FIXME
 select * from answers where is_best = true
 union all
 (select * from answers where question = ? except select * from answers where is_best = true order by likes desc);

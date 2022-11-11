@@ -175,11 +175,10 @@ public class AnswerDao {
         }
     }
 
-    public boolean unmarkBestAnswer(int questionId) throws DBException {
+    public void unmarkBestAnswer(int questionId) throws DBException {
         try (PreparedStatement stmt = conn.prepareStatement("update answers set is_best = false where is_best = true and question = ?")) {
             stmt.setInt(1, questionId);
-            ResultSet rs = stmt.executeQuery();
-            return rs.next();
+            stmt.execute();
         } catch (SQLException e) {
             throw new DBException("Cannot get best answer", e);
         }
