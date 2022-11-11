@@ -9,11 +9,11 @@
     </layout:question>
 
     <button id="#btn_add_answer" type="button" class="btn btn-dark">Add answer</button>
-    <div id="#form_add_answer" style="display: none">
+    <div id="#form_add_answer" class="bg-dark bg-opacity-50 rounded-5 border-3 w-50 mx-auto border-dark p-2" style="display: none">
         <p>Write answer</p>
-        <form method="post" action="${pageContext.request.contextPath}/questions/add_answer?questionId=${question.id}&userId=${userId}">
-            <input type="text" name="text" required placeholder="Answer text">
-            <input title="submit" type="submit" class="btn btn-dark">
+        <form method="post" class="border-1 border-dark p-2" action="${pageContext.request.contextPath}/questions/add_answer?questionId=${question.id}&userId=${userId}">
+            <input type="text" class="w-25 mx-auto form-control" name="text" required placeholder="Answer text">
+            <input title="submit" type="submit" class="btn btn-dark border-1 border-white m-2">
         </form>
     </div>
     <hr>

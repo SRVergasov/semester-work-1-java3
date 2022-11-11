@@ -5,13 +5,13 @@
 
 <layout:mainLayout>
 
-    <form class="form-switch" method="post">
+    <form method="post">
 
         <c:forEach items="${answersList}" var="answer">
             <layout:answer answer="${answer}" editing="${true}">
                 <c:if test="${!answer.best}">
                     <br>
-                    <span>
+                    <span class="border-dark border-1">
                         Choose this answer:
                         <input type="radio" value="${answer.id}" name="bestAnswer">
                     </span>

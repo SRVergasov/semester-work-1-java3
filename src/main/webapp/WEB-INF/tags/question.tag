@@ -6,21 +6,21 @@
 <%@attribute name="editing" required="true" type="java.lang.Boolean" %>
 <%@attribute name="username" type="java.lang.String" required="false" %>
 
-<div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
+<div class="p-4 mb-2 text-white rounded-5 bg-dark">
     <c:if test="${!editing}">
         <c:if test="${userId eq question.userId}">
             <a class="btn btn-danger" href="${pageContext.request.contextPath}/questions/question_delete?questionId=${question.id}">Delete</a>
             <a class="btn btn-warning" href="${pageContext.request.contextPath}/questions/question_edit?questionId=${question.id}">Edit</a>
         </c:if>
     </c:if>
-    <div class="col-md-6 px-0">
+    <div>
         <h1 class="display-4 fst-italic">${question.title}</h1>
         <p class="lead my-3">${question.description}</p>
         <c:if test="${not empty username}">
             <p>Author: ${username}</p>
         </c:if>
         <c:if test="${not individual}">
-            <p class="lead mb-0"><a href="${pageContext.request.contextPath}/questions/question?id=${question.id}" class="text-white fw-bold">Open</a></p>
+            <p class="lead mb-0"><a href="${pageContext.request.contextPath}/questions/question?id=${question.id}" class="btn border-1 border-white text-white fw-bold">Open</a></p>
         </c:if>
         <c:if test="${individual and !editing and userId eq question.userId}">
             <a class="btn btn-light" href="${pageContext.request.contextPath}/questions/choose_best?questionId=${question.id}">Choose best answer</a>

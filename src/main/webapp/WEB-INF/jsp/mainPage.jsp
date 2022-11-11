@@ -6,6 +6,7 @@
 <layout:mainLayout>
 
     <h1>
+    <%--   TODO info     --%>
         Welcome to this site. Please authorize or go to the menu
     </h1>
 

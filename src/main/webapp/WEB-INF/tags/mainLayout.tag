@@ -5,8 +5,11 @@
 
 <%@attribute name="jsFiles"%>
 
+<html>
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>${title}</title>
     <link rel="stylesheet" href="<c:url value="/static/css/styles.css"/>">
     <link rel="stylesheet" href="<c:url value="/static/css/bootstrap.min.css"/>">
@@ -48,7 +51,9 @@
 <div id="#auth_form" style="display: none">
     <layout:authForm />
 </div>
-<div id="#main">
+<div id="#main" class="w-75 mx-auto mt-3">
     <jsp:doBody/>
 </div>
 </body>
+
+</html>

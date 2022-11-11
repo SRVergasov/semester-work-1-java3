@@ -6,7 +6,7 @@
 
     <h1>Registration page</h1>
 
-    <div class="form-signin m-auto">
+    <div>
         <form action="${pageContext.request.contextPath}/registration" method="post">
             <div class="mb-3">
                 <label for="inputUsername" class="form-label">Username</label>
@@ -17,7 +17,7 @@
                 <label for="exampleInputPassword1" class="form-label">Password</label>
                 <input type="password" name="password" class="form-control" required id="exampleInputPassword1">
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-dark">Register</button>
         </form>
     </div>
 </layout:mainLayout>

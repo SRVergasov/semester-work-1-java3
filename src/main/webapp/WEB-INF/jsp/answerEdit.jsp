@@ -5,9 +5,9 @@
 <layout:mainLayout>
 
     <layout:answer answer="${answer}" editing="${true}">
-        <form method="post">
-            <input type="text" name="newText" placeholder="new text" required>
-            <input type="submit" class="btn">
+        <form method="post" class="border-1 border-dark p-2">
+            <input type="text" name="newText" class="w-25 mx-auto form-control" placeholder="new text" required>
+            <input type="submit" class="btn btn-dark border-1 border-white">
         </form>
     </layout:answer>
 

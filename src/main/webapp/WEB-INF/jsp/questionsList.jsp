@@ -7,13 +7,13 @@
     <h1>Welcome to the questions list page!</h1>
 
     <button id="#btn_add_question" type="button" class="btn btn-secondary">Add question</button>
-    <div id="#form_add_question" style="display: none">
+    <div id="#form_add_question" class="bg-dark rounded-5 bg-opacity-25 border-3 w-50 mx-auto border-dark p-2" style="display: none">
         <p>Write question</p>
         <form method="post" action="${pageContext.request.contextPath}/questions/add_question">
-            <input type="text" name="title" required placeholder="Question title">
-            <input type="text" name="description" placeholder="Question description">
-                <%--TODO js max len --%>
-            <input title="submit" type="submit" class="btn btn-dark">
+            <input type="text" class="w-25 mx-auto form-control" name="title" required placeholder="Question title">
+            <p class="text-dark border-1 border-white">0/20</p>
+            <input type="text" class="w-25 mx-auto form-control" name="description" placeholder="Question description">
+            <input title="submit" type="submit" class="m-2 btn btn-light border-dark border-1">
         </form>
     </div>
 

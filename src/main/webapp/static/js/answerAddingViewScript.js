@@ -4,3 +4,4 @@ addButton.addEventListener('click', function () {
     addAnswerForm.style.display = "block";
     addButton.style.display = "none";
 });
+//TODO close button

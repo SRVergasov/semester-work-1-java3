@@ -2,30 +2,18 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:choose>
-    <c:when test="${not empty userId}">
-        <div class="alert alert-warning" role="alert">
-            You already here!
-        </div>
-    </c:when>
-    <c:otherwise>
-        <div class="form-signin w-100 m-auto">
-            <form action="${pageContext.request.contextPath}/auth" method="post">
-                <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+<div class="w-25 mx-auto">
+    <form action="${pageContext.request.contextPath}/auth" method="post">
+        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
-                <div class="form-floating">
-                    <input name="username" required type="text" class="form-control" id="floatingInput">
-                    <label for="floatingInput">Username</label>
-                    <div class="form-text">First time here? <a href="${pageContext.request.contextPath}/registration">registration</a></div>
-                </div>
-                <div class="form-floating">
-                    <input name="password" required type="password" class="form-control" id="floatingPassword">
-                    <label for="floatingPassword">Password</label>
-                </div>
-                <button class="btn btn-lg btn-primary" type="submit">Sign in</button>
-                <button class="btn btn-lg btn-secondary" id="#btn_close" type="button">Close</button>
-                <p class="mt-5 mb-3 text-muted">©2022</p>
-            </form>
+        <div>
+            <input name="username" required type="text" placeholder="Username" class="form-control" id="floatingInput">
+            <div class="form-text">First time here? <a href="${pageContext.request.contextPath}/registration">registration</a></div>
         </div>
-    </c:otherwise>
-</c:choose>
+        <div>
+            <input name="password" required type="password" placeholder="Password" class="form-control" id="floatingPassword">
+        </div>
+        <button class="btn m-1 btn-lg btn-dark" type="submit">Sign in</button><br>
+        <button class="btn m-1 btn-lg btn-light border-1 border-dark" id="#btn_close" type="button">Close</button>
+    </form>
+</div>

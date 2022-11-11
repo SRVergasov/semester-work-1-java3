@@ -1,6 +1,5 @@
 let form = document.getElementById("#auth_form");
 let body = document.getElementById("#main");
-if (document.getElementById("#link_auth"))
 document.getElementById("#link_auth").addEventListener('click', function () {
     form.style.display = 'block';
     body.style.display = 'none';
